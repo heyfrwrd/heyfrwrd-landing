@@ -6,12 +6,12 @@ import { Sparkles } from "@lucide/astro";
 ---
 
 <div class="relative overflow-hidden">
-  <!-- Top left sparkle -->
+  <!-- Destellos superior izquierda -->
   <div class="absolute top-24 left-4">
     <Sparkle size={20} className="text-[#683fe7]/50" />
   </div>
 
-  <!-- Top right sparkles cluster -->
+  <!-- Racimo superior derecha -->
   <div class="absolute top-12 right-16">
     <div class="relative">
       <Sparkle size={40} className="text-[#683fe7]/40" />
@@ -21,7 +21,7 @@ import { Sparkles } from "@lucide/astro";
     </div>
   </div>
 
-  <!-- Middle left sparkles -->
+  <!-- Destellos a la izquierda media -->
   <div class="absolute top-80">
     <div class="relative">
       <Sparkle size={28} className="text-[#683fe7]/30" />
@@ -31,53 +31,54 @@ import { Sparkles } from "@lucide/astro";
     </div>
   </div>
 
-  <!-- bottom left sparkle -->
+  <!-- Destello inferior derecha -->
   <div class="absolute bottom-24 right-4">
     <Sparkle size={20} className="text-[#683fe7]/20" />
   </div>
 
-  <!-- Main content -->
+  <!-- Contenido principal -->
   <div class="flex flex-col items-center justify-start px-8 text-center">
-    <!-- Stay Tuned badge -->
+    <!-- Insignia “Próximamente” -->
     <div
       class="flex items-center gap-2 bg-transparent rounded-md p-2 border border-gray-700/20 my-5"
     >
       <Sparkles size={14} class="text-gray-700/20" fill="currentColor" />
-      <span class="text-gray-700 font-medium">Stay Tuned</span>
+      <span class="text-gray-700 font-medium">Próximamente</span>
     </div>
 
-    <!-- Heading -->
+    <!-- Título -->
     <div class="max-w-5xl mb-8">
       <h1
         class="text-6xl md:text-7xl lg:text-8xl font-bold text-gray-900 leading-tight"
       >
-        We are working on
+        Trabajando en
       </h1>
       <div class="relative">
         <h1
           class="text-6xl md:text-7xl lg:text-8xl font-bold text-gray-900 leading-tight"
         >
-          our <span class="text-[#683fe7] font-extrabold">Platform</span>
+          nuestra <span class="text-[#683fe7] font-extrabold">plataforma</span>
         </h1>
       </div>
     </div>
 
-    <!-- Description -->
+    <!-- Descripción -->
     <p
-      class="flex text-gray-600 text-lg md:text-xl max-w-2xl mb-12 leading-relaxed my-4"
+      class="text-gray-600 text-lg md:text-xl max-w-2xl mb-12 leading-relaxed my-4"
     >
-      We have something coming that is going to blow you away. Below is a sneak
-      peek of what we offer. Check back often for our launch.
+      Quizás estés perdido en internet o quizás seas uno de nuestros buenos
+      amigos. De cualquier forma, sé el primero en enterarte cuando lancemos
+      nuestra plataforma.
     </p>
 
-    <!-- Subscription form -->
+    <!-- Formulario de suscripción -->
     <EmailSubscription />
 
     <!-- Iconos sociales -->
     <div class="flex items-center gap-3 mt-10 p-2">
       <a
         href="#"
-        aria-label="Facebook"
+        aria-label="GitHub"
         class="w-8 h-8 bg-white/80 hover:bg-white/90 backdrop-blur-sm rounded-full flex items-center justify-center transition-all duration-200 border-white/40 shadow-md"
       >
         <Github class="text-gray-600 hover:text-gray-800" size={18} />
