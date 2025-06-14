@@ -1,0 +1,95 @@
+---
+import Sparkle from "./Sparkle.astro";
+import EmailSubscription from "./EmailSubscription.astro";
+import { Sparkles } from "@lucide/astro";
+---
+
+<div class="relative overflow-hidden">
+  <!-- Top left sparkle -->
+  <div class="absolute top-24 left-4">
+    <Sparkle size={20} className="text-[#683fe7]" />
+  </div>
+
+  <!-- Top right sparkles cluster -->
+  <div class="absolute top-12 right-16">
+    <div class="relative">
+      <Sparkle size={40} className="text-[#683fe7]" />
+      <div class="absolute top-6 left-6">
+        <Sparkle size={20} className="text-[#683fe7]" />
+      </div>
+    </div>
+  </div>
+
+  <!-- Middle left sparkles -->
+  <div class="absolute top-80">
+    <div class="relative">
+      <Sparkle size={28} className="text-[#683fe7]" />
+      <div class="absolute top-6 left-6">
+        <Sparkle size={14} className="text-[#683fe7]" />
+      </div>
+    </div>
+  </div>
+
+  <!-- bottom left sparkle -->
+  <div class="absolute bottom-24 right-4">
+    <Sparkle size={20} className="text-[#683fe7]" />
+  </div>
+
+  <!-- Main content -->
+  <div class="flex flex-col items-center justify-start px-8 text-center">
+    <!-- Stay Tuned badge -->
+    <div
+      class="flex items-center gap-2 bg-transparent rounded-md p-2 border border-gray-900/20 mb-10"
+    >
+      <Sparkles size={14} class="text-gray-700" fill="currentColor" />
+      <span class="text-gray-700 font-medium">Stay Tuned</span>
+    </div>
+
+    <!-- Heading -->
+    <div class="max-w-5xl mb-8">
+      <h1
+        class="text-6xl md:text-7xl lg:text-8xl font-bold text-gray-900 leading-tight"
+      >
+        We are working on
+      </h1>
+      <div class="relative">
+        <h1
+          class="text-6xl md:text-7xl lg:text-8xl font-bold text-gray-900 leading-tight"
+        >
+          our <span
+            class="text-[#747474] line-through decoration-4 decoration-[#747474]"
+            >Website</span
+          >
+        </h1>
+        <div class="absolute -bottom-10 right-0 md:right-8">
+          <span
+            class="text-4xl md:text-5xl lg:text-6xl font-bold text-[#683fe7]"
+            >Platform</span
+          >
+        </div>
+      </div>
+    </div>
+
+    <!-- Description -->
+    <p
+      class="flex text-gray-600 text-lg md:text-xl max-w-2xl mb-12 leading-relaxed mt-20"
+    >
+      We have something coming that is going to blow you away. Below is a sneak
+      peek of what we offer. Check back often for our launch.
+    </p>
+
+    <!-- Subscription form -->
+    <EmailSubscription />
+  </div>
+</div>
+
+<!-- client-side script to handle the form -->
+<script type="module">
+  const form = document.getElementById("subscribe-form");
+  const input = document.getElementById("email-input");
+  form.addEventListener("submit", (e) => {
+    e.preventDefault();
+    console.log("Subscribed:", input.value);
+    input.value = "";
+  });
+</script>
