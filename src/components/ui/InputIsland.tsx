@@ -6,7 +6,7 @@ import {
   InputButtonAction,
   InputButtonInput,
   InputButtonSubmit,
-} from "./animate-ui/buttons/input";
+} from "@/components/animate-ui/buttons/input";
 
 export default function InputIsland() {
   return (
