@@ -12,10 +12,10 @@ export default function InputIsland() {
   return (
     <InputButtonProvider>
       <InputButton>
-        <InputButtonAction>Join the newsletter</InputButtonAction>
-        <InputButtonSubmit>Subscribe</InputButtonSubmit>
+        <InputButtonAction>¡Solicita acceso anticipado!</InputButtonAction>
+        <InputButtonSubmit>Solicitar</InputButtonSubmit>
       </InputButton>
-      <InputButtonInput type="email" placeholder="your-email@example.com" />
+      <InputButtonInput placeholder="@your_instagram" />
     </InputButtonProvider>
   );
 }
