@@ -3,39 +3,27 @@ import Sparkle from "./Sparkle.astro";
 import EmailSubscription from "./EmailSubscription.astro";
 import { Github, Instagram, Linkedin, Mail } from "@lucide/astro";
 import { Sparkles } from "@lucide/astro";
+// Genera N destellos con valores aleatorios
+const N = 12;
+const sparkles = Array.from({ length: N }).map(() => ({
+  size: 12 + Math.random() * 24, // tamaño entre 12 y 36
+  top: Math.random() * 100, // porcentaje vertical
+  left: Math.random() * 100, // porcentaje horizontal
+  opacity: (20 + Math.random() * 50).toFixed(0), // opacidad entre 20% y 70%
+}));
 ---
 
-<div class="relative overflow-hidden">
-  <!-- Destellos superior izquierda -->
-  <div class="absolute top-24 left-4">
-    <Sparkle size={20} className="text-[#683fe7]/50" />
-  </div>
-
-  <!-- Racimo superior derecha -->
-  <div class="absolute top-12 right-16">
-    <div class="relative">
-      <Sparkle size={40} className="text-[#683fe7]/40" />
-      <div class="absolute top-6 left-6">
-        <Sparkle size={20} className="text-[#683fe7]/40" />
+<div class="relative overflow-hidden min-h-[500px]">
+  {
+    sparkles.map((s, i) => (
+      <div
+        class="absolute transform"
+        style={`top: ${s.top}%; left: ${s.left}%;`}
+      >
+        <Sparkle size={s.size} className={`text-[#683fe7]/50 -z-10`} />
       </div>
-    </div>
-  </div>
-
-  <!-- Destellos a la izquierda media -->
-  <div class="absolute top-80">
-    <div class="relative">
-      <Sparkle size={28} className="text-[#683fe7]/30" />
-      <div class="absolute top-6 left-6">
-        <Sparkle size={14} className="text-[#683fe7]/30" />
-      </div>
-    </div>
-  </div>
-
-  <!-- Destello inferior derecha -->
-  <div class="absolute bottom-24 right-4">
-    <Sparkle size={20} className="text-[#683fe7]/20" />
-  </div>
-
+    ))
+  }
   <!-- Contenido principal -->
   <div class="flex flex-col items-center justify-start px-8 text-center">
     <!-- Insignia “Próximamente” -->
@@ -66,9 +54,9 @@ import { Sparkles } from "@lucide/astro";
     <p
       class="text-gray-600 text-lg md:text-xl max-w-2xl mb-12 leading-relaxed my-4"
     >
-      Quizás estés perdido en internet o quizás seas uno de nuestros buenos
-      amigos. De cualquier forma, sé el primero en enterarte cuando lancemos
-      nuestra plataforma.
+      Quizás estés perdido en internet o a lo mejor eres uno de nuestros amigos.
+      De cualquier forma, sé el primero en enterarte cuando lancemos nuestra
+      plataforma.
     </p>
 
     <!-- Formulario de suscripción -->
@@ -77,28 +65,28 @@ import { Sparkles } from "@lucide/astro";
     <!-- Iconos sociales -->
     <div class="flex items-center gap-3 mt-10 p-2">
       <a
-        href="#"
+        href="https://github.com/FNDRS"
         aria-label="GitHub"
         class="w-8 h-8 bg-white/80 hover:bg-white/90 backdrop-blur-sm rounded-full flex items-center justify-center transition-all duration-200 border-white/40 shadow-md"
       >
         <Github class="text-gray-600 hover:text-gray-800" size={18} />
       </a>
       <a
-        href="#"
+        href="https://www.instagram.com/heyfrwrd/"
         aria-label="Instagram"
         class="w-8 h-8 bg-white/80 hover:bg-white/90 backdrop-blur-sm rounded-full flex items-center justify-center transition-all duration-200 border-white/40 shadow-md"
       >
         <Instagram class="text-gray-600 hover:text-gray-800" size={18} />
       </a>
       <a
-        href="#"
+        href="https://www.linkedin.com/company/heyfrwrd/"
         aria-label="LinkedIn"
         class="w-8 h-8 bg-white/80 hover:bg-white/90 backdrop-blur-sm rounded-full flex items-center justify-center transition-all duration-200 border-white/40 shadow-md"
       >
         <Linkedin class="text-gray-600 hover:text-gray-800" size={18} />
       </a>
       <a
-        href="#"
+        href="mailto:marlon.castro@heyfrwrd.me"
         aria-label="Email"
         class="w-8 h-8 bg-white/80 hover:bg-white/90 backdrop-blur-sm rounded-full flex items-center justify-center transition-all duration-200 border-white/40 shadow-md"
       >
