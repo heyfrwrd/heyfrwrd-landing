@@ -1,0 +1,52 @@
+---
+import Input from "@/components/ui/Input.astro";
+import Label from "@/components/ui/Label.astro";
+import Layout from "@/layouts/Layout.astro";
+---
+
+<Layout>
+  <form
+    method="POST"
+    action="/api/encuesta"
+    class="max-w-2xl mx-auto p-6 bg-white rounded-xl space-y-6"
+  >
+    <h2 class="text-4xl text-center font-bold text-gray-900">
+      Solicitar Acceso Anticipado
+    </h2>
+    <p>
+      Solo responde simples preguntas asi podemos personalizar la experiencia
+      correcta para ti
+    </p>
+
+    <!-- Nombre -->
+    <div>
+      <Label for="name">Nombre</Label>
+      <Input id="name" name="name" placeholder="Tu nombre" required />
+    </div>
+
+    <!-- Correo -->
+    <div>
+      <Label for="email">Correo</Label>
+      <Input
+        id="email"
+        name="email"
+        type="email"
+        placeholder="tucorreo@ejemplo.com"
+        required
+      />
+    </div>
+
+    <!-- Instagram handle -->
+    <div>
+      <Label for="instagram">Instagram (@)</Label>
+      <Input id="instagram" name="instagram" placeholder="@tuusuario" />
+    </div>
+
+    <button
+      type="submit"
+      class="w-full py-2 bg-black text-white font-medium rounded-md transition-colors"
+    >
+      Enviar encuesta
+    </button>
+  </form>
+</Layout>
