@@ -2,8 +2,7 @@
 import Sparkle from "./Sparkle.astro";
 import { Github, Instagram, Linkedin, Mail } from "@lucide/astro";
 import { Sparkles } from "@lucide/astro";
-
-import { SimpleInputButton } from "./animate-ui/buttons/input";
+import InputIsland from "@/components/InputIsland.tsx";
 
 const N = 12;
 const sparkles = Array.from({ length: N }).map(() => ({
@@ -52,6 +51,9 @@ const sparkles = Array.from({ length: N }).map(() => ({
       Responde automáticamente a reacciones, menciones y preguntas frecuentes.
       Ahorra tiempo, gana leads y mantén tu estilo auténtico.
     </p>
+
+    <!-- React Island: hidrata solo este fragmento -->
+    <InputIsland client:load />
 
     <!-- Iconos sociales -->
     <div class="flex items-center gap-3 mt-10 p-2">
