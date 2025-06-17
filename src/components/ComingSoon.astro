@@ -1,9 +1,10 @@
 ---
 import Sparkle from "./Sparkle.astro";
-import EmailSubscription from "./EmailSubscription.astro";
 import { Github, Instagram, Linkedin, Mail } from "@lucide/astro";
 import { Sparkles } from "@lucide/astro";
-// Genera N destellos con valores aleatorios
+
+import { SimpleInputButton } from "./animate-ui/buttons/input";
+
 const N = 12;
 const sparkles = Array.from({ length: N }).map(() => ({
   size: 12 + Math.random() * 24, // tamaño entre 12 y 36
@@ -14,7 +15,7 @@ const sparkles = Array.from({ length: N }).map(() => ({
 ---
 
 <div class="relative overflow-hidden min-h-[500px]">
-  {
+  <!--   {
     sparkles.map((s, i) => (
       <div
         class="absolute transform"
@@ -23,7 +24,7 @@ const sparkles = Array.from({ length: N }).map(() => ({
         <Sparkle size={s.size} className={`text-[#683fe7]/50 -z-10`} />
       </div>
     ))
-  }
+  } -->
   <!-- Contenido principal -->
   <div class="flex flex-col items-center justify-start px-8 text-center">
     <!-- Insignia “Próximamente” -->
@@ -51,9 +52,6 @@ const sparkles = Array.from({ length: N }).map(() => ({
       Responde automáticamente a reacciones, menciones y preguntas frecuentes.
       Ahorra tiempo, gana leads y mantén tu estilo auténtico.
     </p>
-
-    <!-- Formulario de suscripción -->
-    <EmailSubscription />
 
     <!-- Iconos sociales -->
     <div class="flex items-center gap-3 mt-10 p-2">
