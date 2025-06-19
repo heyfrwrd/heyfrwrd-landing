@@ -52,7 +52,7 @@ function InputButtonProvider({
       <div
         data-slot="input-button-provider"
         className={cn(
-          "relative w-fit flex items-center justify-center h-12",
+          "relative w-[250px] flex items-center justify-center h-12",
           (showInput || localShowInput) && "w-full max-w-[400px]",
           className
         )}
@@ -112,7 +112,7 @@ function InputButtonSubmit({
       layoutId={`input-button-submit-${id}`}
       transition={transition}
       className={cn(
-        "z-[1] [&_svg:not([class*='size-'])]:size-4 cursor-pointer disabled:pointer-events-none  disabled:opacity-50 shrink-0 [&_svg]:shrink-0outline-none focus-visible:border-black focus-visible:ring-2 focus-visible:ring-black aria-invalid:ring-destructive/20 dark:aria-invalid:ring-destructive/40 aria-invalid:border-destructive whitespace-nowrap bg-primary hover:bg-primary/90 transition-colors text-primary-foreground rounded-full text-sm flex items-center justify-center font-medium absolute inset-y-1 right-1",
+        "z-[1] [&_svg:not([class*='size-'])]:size-4 cursor-pointer disabled:pointer-events-none  disabled:opacity-50 shrink-0 [&_svg]:shrink-0outline-none focus-visible:border-black focus-visible:ring-2 focus-visible:ring-black aria-invalid:ring-destructive/20 dark:aria-invalid:ring-destructive/40 aria-invalid:border-destructive whitespace-nowrap bg-primary hover:bg-primary/90 transition-colors text-primary-foreground rounded-full text-sm flex items-center justify-center font-medium absolute inset-y-1 right-1 disabled:bg-red/90 disabled:cursor-not-allowed",
         showInput ? "px-8" : "aspect-square",
         className
       )}
