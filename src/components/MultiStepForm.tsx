@@ -608,8 +608,9 @@ export default function MultiStepForm() {
                         <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
                           <OptionCard
                             icon={<CircleDollarSign className="w-6 h-6" />}
-                            title="$10–30"
-                            value="10-30"
+                            title="$8–20"
+                            subtitle="aprox. 208-521 HNL "
+                            value="8-20"
                             selectedValue={values.paymentWillingness}
                             onClick={(value) =>
                               setFieldValue("paymentWillingness", value)
@@ -618,6 +619,7 @@ export default function MultiStepForm() {
                           <OptionCard
                             icon={<Handshake className="w-6 h-6" />}
                             title="$30–100"
+                            subtitle="aprox. 781-2,614.99 HNL"
                             value="30-100"
                             selectedValue={values.paymentWillingness}
                             onClick={(value) =>
@@ -627,6 +629,7 @@ export default function MultiStepForm() {
                           <OptionCard
                             icon={<PiggyBank className="w-6 h-6" />}
                             title="$100+"
+                            subtitle="aprox. 2,614.99 HNL"
                             value="100+"
                             selectedValue={values.paymentWillingness}
                             onClick={(value) =>
