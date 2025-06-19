@@ -184,7 +184,6 @@ export default function MultiStepForm() {
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [isSubmitted, setIsSubmitted] = useState(false);
 
-  // Define Spanish titles and subtitles for each step
   const steps = [
     {
       title: "¡Nos encantaría saber más sobre ti!",
