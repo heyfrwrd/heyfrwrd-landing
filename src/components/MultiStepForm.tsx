@@ -1,8 +1,7 @@
 "use client";
 
 import type React from "react";
-import { useState } from "react";
-// @ts-expect-error: No types for canvas-confetti
+import { useEffect, useState } from "react";
 import confetti from "canvas-confetti";
 
 import { Formik, Form, Field, ErrorMessage } from "formik";
@@ -141,7 +140,7 @@ const OptionCard: React.FC<OptionCardProps> = ({
         relative cursor-pointer rounded-2xl border-2 p-6 transition-all duration-200 hover:shadow-lg
         ${
           isSelected
-            ? "border-indigo-500 bg-indigo-50 shadow-md"
+            ? "border-[#683fe7] bg-indigo-50 shadow-md"
             : "border-gray-200 bg-white hover:border-gray-300"
         }
       `}
@@ -152,7 +151,7 @@ const OptionCard: React.FC<OptionCardProps> = ({
           p-3 rounded-xl
           ${
             isSelected
-              ? "bg-indigo-100 text-indigo-600"
+              ? "bg-indigo-100 text-indigo-800"
               : "bg-gray-100 text-gray-600"
           }
         `}
@@ -186,6 +185,14 @@ export default function MultiStepForm() {
   const [currentStep, setCurrentStep] = useState(0);
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [isSubmitted, setIsSubmitted] = useState(false);
+
+  const [savedInstagram, setSavedInstagram] = useState("");
+  useEffect(() => {
+    const handle = window.sessionStorage.getItem("instagram_handle") || "";
+    setSavedInstagram(handle);
+  }, []);
+
+  const initial = { ...initialValues, instagram: savedInstagram };
 
   const steps = [
     {
@@ -268,7 +275,8 @@ export default function MultiStepForm() {
     <div className="min-h-screen bg-gradient-to-br from-gray-50 to-white flex items-center justify-center p-4">
       <div className="max-w-2xl w-full">
         <Formik
-          initialValues={initialValues}
+          key={savedInstagram}
+          initialValues={initial}
           validationSchema={validationSchemas[currentStep]}
           onSubmit={(values) => {
             if (currentStep === steps.length - 1) {
@@ -727,14 +735,10 @@ export default function MultiStepForm() {
                         <Field
                           type="text"
                           name="name"
-                          className="w-full px-4 py-3 border-2 border-gray-200 rounded-md focus:ring-0 focus:border-black placeholder:text-gray-300"
+                          className="w-full px-4 py-3 border-2 border-gray-200 rounded-md focus:ring-0 focus:border-black placeholder:text-gray-300 focus-visible:outline-0"
                           placeholder="Tu nombre completo"
                         />
-                        <ErrorMessage
-                          name="name"
-                          component="div"
-                          className="text-red-500 text-sm mt-1"
-                        />
+                        <ErrorMessage name="name" component="div" />
                       </div>
 
                       <div>
@@ -747,7 +751,7 @@ export default function MultiStepForm() {
                         <Field
                           type="email"
                           name="email"
-                          className="w-full px-4 py-3 border-2 border-gray-200 rounded-md focus:ring-0 focus:border-black placeholder:text-gray-300"
+                          className="w-full px-4 py-3 border-2 border-gray-200 rounded-md focus:ring-0 focus:border-black placeholder:text-gray-300 focus-visible:outline-0"
                           placeholder="tu@email.com"
                         />
                         <ErrorMessage
@@ -767,7 +771,7 @@ export default function MultiStepForm() {
                         <Field
                           type="text"
                           name="instagram"
-                          className="w-full px-4 py-3 border-2 border-gray-200 rounded-md focus:ring-0 focus:border-black placeholder:text-gray-300"
+                          className="w-full px-4 py-3 border-2 border-gray-200 rounded-md focus:ring-0 focus:border-black placeholder:text-gray-300 focus-visible:outline-0"
                           placeholder="@tuusuario"
                         />
                         <ErrorMessage
