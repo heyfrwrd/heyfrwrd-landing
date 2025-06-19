@@ -4,7 +4,7 @@ import type React from "react";
 import { useEffect, useState } from "react";
 import confetti from "canvas-confetti";
 
-import { Formik, Form, Field, ErrorMessage } from "formik";
+import { Formik, Form, Field } from "formik";
 import * as Yup from "yup";
 import {
   ChevronLeft,
@@ -272,7 +272,7 @@ export default function MultiStepForm() {
 
   // Main multi-step form UI
   return (
-    <div className="min-h-screen bg-gradient-to-br from-gray-50 to-white flex items-center justify-center p-4">
+    <div className="min-h-[calc(100vh-64px)] pt-[64px] bg-gradient-to-br from-gray-50 to-white flex items-center justify-center p-4">
       <div className="max-w-2xl w-full">
         <Formik
           key={savedInstagram}
@@ -360,11 +360,6 @@ export default function MultiStepForm() {
                             }
                           />
                         </div>
-                        <ErrorMessage
-                          name="creatorType"
-                          component="div"
-                          className="text-red-500 text-sm mt-2"
-                        />
                       </div>
 
                       <div>
@@ -403,11 +398,6 @@ export default function MultiStepForm() {
                             }
                           />
                         </div>
-                        <ErrorMessage
-                          name="followersCount"
-                          component="div"
-                          className="text-red-500 text-sm mt-2"
-                        />
                       </div>
 
                       <div>
@@ -446,11 +436,6 @@ export default function MultiStepForm() {
                             }
                           />
                         </div>
-                        <ErrorMessage
-                          name="platform"
-                          component="div"
-                          className="text-red-500 text-sm mt-2"
-                        />
                       </div>
                     </div>
                   )}
@@ -486,11 +471,6 @@ export default function MultiStepForm() {
                             }
                           />
                         </div>
-                        <ErrorMessage
-                          name="biggestChallenge"
-                          component="div"
-                          className="text-red-500 text-sm mt-2"
-                        />
                       </div>
 
                       <div>
@@ -529,11 +509,6 @@ export default function MultiStepForm() {
                             }
                           />
                         </div>
-                        <ErrorMessage
-                          name="timeSpentOnDMs"
-                          component="div"
-                          className="text-red-500 text-sm mt-2"
-                        />
                       </div>
                     </div>
                   )}
@@ -577,11 +552,6 @@ export default function MultiStepForm() {
                             }
                           />
                         </div>
-                        <ErrorMessage
-                          name="dailyInteractions"
-                          component="div"
-                          className="text-red-500 text-sm mt-2"
-                        />
                       </div>
 
                       <div>
@@ -624,11 +594,6 @@ export default function MultiStepForm() {
                             }
                           />
                         </div>
-                        <ErrorMessage
-                          name="missedOpportunities"
-                          component="div"
-                          className="text-red-500 text-sm mt-2"
-                        />
                       </div>
                     </div>
                   )}
@@ -669,11 +634,6 @@ export default function MultiStepForm() {
                             }
                           />
                         </div>
-                        <ErrorMessage
-                          name="paymentWillingness"
-                          component="div"
-                          className="text-red-500 text-sm mt-2"
-                        />
                       </div>
 
                       <div>
@@ -713,11 +673,6 @@ export default function MultiStepForm() {
                             }
                           />
                         </div>
-                        <ErrorMessage
-                          name="automationInterest"
-                          component="div"
-                          className="text-red-500 text-sm mt-2"
-                        />
                       </div>
                     </div>
                   )}
@@ -738,7 +693,6 @@ export default function MultiStepForm() {
                           className="w-full px-4 py-3 border-2 border-gray-200 rounded-md focus:ring-0 focus:border-black placeholder:text-gray-300 focus-visible:outline-0"
                           placeholder="Tu nombre completo"
                         />
-                        <ErrorMessage name="name" component="div" />
                       </div>
 
                       <div>
@@ -754,11 +708,6 @@ export default function MultiStepForm() {
                           className="w-full px-4 py-3 border-2 border-gray-200 rounded-md focus:ring-0 focus:border-black placeholder:text-gray-300 focus-visible:outline-0"
                           placeholder="tu@email.com"
                         />
-                        <ErrorMessage
-                          name="email"
-                          component="div"
-                          className="text-red-500 text-sm mt-1"
-                        />
                       </div>
 
                       <div>
@@ -773,11 +722,6 @@ export default function MultiStepForm() {
                           name="instagram"
                           className="w-full px-4 py-3 border-2 border-gray-200 rounded-md focus:ring-0 focus:border-black placeholder:text-gray-300 focus-visible:outline-0"
                           placeholder="@tuusuario"
-                        />
-                        <ErrorMessage
-                          name="instagram"
-                          component="div"
-                          className="text-red-500 text-sm mt-1"
                         />
                       </div>
                     </div>
