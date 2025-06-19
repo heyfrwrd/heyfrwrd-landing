@@ -57,7 +57,6 @@ const sparkles = Array.from({ length: N }).map(() => ({
   } -->
 
   <div class="flex flex-col items-center justify-start px-8 text-center">
-    <!-- Insignia “Próximamente” -->
     <div
       class="flex items-center gap-2 bg-transparent rounded-md p-2 border border-gray-700/20 my-5 fade-up"
       style="animation-delay: 0.2s;"
@@ -66,7 +65,6 @@ const sparkles = Array.from({ length: N }).map(() => ({
       <span class="text-gray-700 font-medium">¡Próximamente disponible!</span>
     </div>
 
-    <!-- Título -->
     <div class="max-w-5xl mb-2 fade-up" style="animation-delay: 0.4s;">
       <h1
         class="text-6xl md:text-7xl lg:text-8xl font-bold text-gray-900 leading-none"
@@ -76,7 +74,6 @@ const sparkles = Array.from({ length: N }).map(() => ({
       </h1>
     </div>
 
-    <!-- Descripción -->
     <p
       class="text-gray-600 text-lg md:text-xl max-w-3xl mb-8 leading-relaxed my-4 fade-up"
       style="animation-delay: 0.6s;"
@@ -85,10 +82,8 @@ const sparkles = Array.from({ length: N }).map(() => ({
       ofrece una experiencia auténtica que fideliza a tu audiencia.
     </p>
 
-    <!-- InputIsland con animación -->
     <InputIsland client:load />
 
-    <!-- Iconos sociales -->
     <SocialIcons />
   </div>
 </div>
