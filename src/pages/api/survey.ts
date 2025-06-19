@@ -1,21 +1,73 @@
 import type { APIRoute } from "astro";
+import { Pool } from "pg";
 
-export const post: APIRoute = async ({ request }) => {
-  const form = await request.formData();
-  const data = {
-    name: form.get("name")?.toString().trim(),
-    email: form.get("email")?.toString().trim(),
-    instagram: form.get("instagram")?.toString().trim(),
-    dmCount: form.get("dmCount")?.toString(),
-    difficult: form.get("difficult")?.toString(),
-    automateInterest: form.get("automateInterest")?.toString(),
-    messageType: form.get("messageType")?.toString(),
-    messageTypeOther: form.get("messageTypeOther")?.toString().trim(),
-    pay: form.get("pay")?.toString(),
-  };
+const DATABASE_URL = import.meta.env.DATABASE_URL;
 
-  return new Response(JSON.stringify({ success: true }), {
-    status: 200,
-    headers: { "Content-Type": "application/json" },
+let pool: Pool;
+try {
+  pool = new Pool({
+    connectionString: DATABASE_URL,
+    ssl: { rejectUnauthorized: false },
+    connectionTimeoutMillis: 5000,
+    idleTimeoutMillis: 30000,
+    max: 10,
   });
+  console.log("✅ PostgreSQL pool created");
+} catch (err) {
+  console.error("❌ Failed to create PostgreSQL pool:", err);
+}
+
+export const prerender = false;
+
+export const POST: APIRoute = async ({ request }) => {
+  // validaciones...
+  const data = await request.json();
+  const {
+    creatorType,
+    followersCount,
+    platform,
+    biggestChallenge,
+    timeSpentOnDMs,
+    dailyInteractions,
+    missedOpportunities,
+    automationInterest,
+    paymentWillingness,
+    name,
+    email,
+    instagram,
+  } = data;
+
+  try {
+    await pool.query(
+      `INSERT INTO leads
+        (creator_type, followers_count, platform,
+         biggest_challenge, time_spent_on_dms,
+         daily_interactions, missed_opportunities,
+         automation_interest, payment_willingness,
+         name, email, instagram)
+       VALUES
+        ($1,$2,$3,$4,$5,$6,$7,$8,$9,$10,$11,$12)`,
+      [
+        creatorType,
+        followersCount,
+        platform,
+        biggestChallenge,
+        timeSpentOnDMs,
+        dailyInteractions,
+        missedOpportunities,
+        automationInterest,
+        paymentWillingness,
+        name,
+        email,
+        instagram,
+      ]
+    );
+    return new Response(JSON.stringify({ success: true }), { status: 200 });
+  } catch (dbErr) {
+    console.error("❌ DB insert error:", dbErr);
+    return new Response(
+      JSON.stringify({ error: "No se pudo guardar en la base de datos." }),
+      { status: 500 }
+    );
+  }
 };

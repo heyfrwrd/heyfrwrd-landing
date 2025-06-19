@@ -2,6 +2,9 @@
 
 import type React from "react";
 import { useState } from "react";
+// @ts-expect-error: No types for canvas-confetti
+import confetti from "canvas-confetti";
+
 import { Formik, Form, Field, ErrorMessage } from "formik";
 import * as Yup from "yup";
 import {
@@ -208,23 +211,21 @@ export default function MultiStepForm() {
     },
   ];
 
-  // Handle final submit to the API
   const handleSubmit = async (values: FormData) => {
     setIsSubmitting(true);
     try {
-      const response = await fetch("/api/encuesta", {
+      const res = await fetch("/api/survey", {
         method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
+        headers: { "Content-Type": "application/json" },
         body: JSON.stringify(values),
       });
+      if (!res.ok) throw new Error("DB error");
 
-      if (response.ok) {
-        setIsSubmitted(true);
-      }
-    } catch (error) {
-      console.error("Error submitting form:", error);
+      confetti({ particleCount: 200, spread: 60, origin: { y: 0.6 } });
+
+      setIsSubmitted(true);
+    } catch (e) {
+      console.error(e);
     } finally {
       setIsSubmitting(false);
     }
@@ -235,19 +236,26 @@ export default function MultiStepForm() {
     return (
       <div className="min-h-screen bg-gradient-to-br from-grays-50 to-white flex items-center justify-center p-4">
         <div className="max-w-md w-full text-center">
-          <div className="bg-white rounded-3xl p-8 shadow-xl">
+          <div className="bg-white border-2 border-black rounded-3xl p-8 shadow-xl">
             <div className="w-16 h-16 bg-green-100 rounded-full flex items-center justify-center mx-auto mb-6">
               <CheckCircle className="w-8 h-8 text-green-600" />
             </div>
             <h2 className="text-2xl font-bold text-gray-900 mb-4">
-              ¡Gracias por tu interés!
+              ¡Agradecemos tu tiempo!
             </h2>
             <p className="text-gray-600 mb-6">
               Hemos recibido tu información. Te contactaremos pronto con acceso
               anticipado a heyfrwrd.me
             </p>
-            <div className="text-sm text-indigo-600 font-medium">
-              Síguenos en @heyfrwrd para más actualizaciones
+            <div className="text-sm  font-medium">
+              Síguenos en{" "}
+              <a
+                className="text-[#683fe7] hover:text-[#683fe7]/80"
+                href="https://www.instagram.com/heyfrwrd"
+              >
+                @heyfrwrd{" "}
+              </a>{" "}
+              para más actualizaciones
             </div>
           </div>
         </div>
