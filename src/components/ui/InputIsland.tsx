@@ -1,5 +1,6 @@
 "use client";
 import * as React from "react";
+import { getCurrentLanguage, getTranslation } from "@/utils/translations";
 import {
   InputButtonProvider,
   InputButton,
@@ -10,6 +11,15 @@ import {
 
 export default function InputIsland() {
   const [handle, setHandle] = React.useState("");
+  const [language, setLanguage] = React.useState<"en" | "es">("es");
+
+  // Helper function for translations
+  const t = (key: string) => getTranslation(key, language);
+
+  // Get the current language on component mount
+  React.useEffect(() => {
+    setLanguage(getCurrentLanguage());
+  }, []);
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
@@ -26,12 +36,12 @@ export default function InputIsland() {
     >
       <InputButtonProvider>
         <InputButton>
-          <InputButtonAction>¡Solicita acceso anticipado!</InputButtonAction>
+          <InputButtonAction>{t("input.requestAccess")}</InputButtonAction>
           <InputButtonSubmit type="submit" disabled={!handle.trim()}>
-            Solicitar
+            {t("input.submit")}
           </InputButtonSubmit>
           <InputButtonInput
-            placeholder="@your_instagram"
+            placeholder={t("input.placeholder")}
             value={handle}
             onChange={(e) => setHandle(e.target.value)}
           />

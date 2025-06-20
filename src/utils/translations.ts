@@ -9,6 +9,9 @@ type TranslationType = {
 // Translations
 export const translations: TranslationType = {
   en: {
+    "input.requestAccess": "Request early access!",
+    "input.submit": "Request",
+    "input.placeholder": "@your_instagram",
     "request.step1Title": "We'd love to learn more about you!",
     "request.step1Subtitle": "We want to tailor to your needs!",
     "request.step2Title": "What's your biggest challenge?",
@@ -18,7 +21,8 @@ export const translations: TranslationType = {
     "request.step4Title": "How interested are you in automation?",
     "request.step4Subtitle": "Gauge your interest in this solution.",
     "request.step5Title": "Let's stay in touch!",
-    "request.step5Subtitle": "We'll send you early access when it's ready—keep an eye on your DMs!",
+    "request.step5Subtitle":
+      "We'll send you early access when it's ready—keep an eye on your DMs!",
     "request.back": "Back",
     "request.next": "Next",
     "request.submit": "Submit",
@@ -38,10 +42,13 @@ export const translations: TranslationType = {
     "request.repetitiveInfo": "Repetitive info",
     "request.repetitiveInfoSub": "Always the same questions",
     "request.timeDMsLabel": "How much time do you spend on DMs daily?",
-    "request.dailyInteractionsLabel": "How many daily interactions do you receive?",
+    "request.dailyInteractionsLabel":
+      "How many daily interactions do you receive?",
     "request.missedOpportunitiesLabel": "How often do you miss opportunities?",
-    "request.paymentWillingnessLabel": "How much would you pay monthly for this solution?",
-    "request.automationInterestLabel": "How interested are you in AI that auto-captures data?",
+    "request.paymentWillingnessLabel":
+      "How much would you pay monthly for this solution?",
+    "request.automationInterestLabel":
+      "How interested are you in AI that auto-captures data?",
     "request.veryInterested": "Very interested",
     "request.veryInterestedSub": "I need it now",
     "request.interested": "Interested",
@@ -54,7 +61,8 @@ export const translations: TranslationType = {
     "request.emailPlaceholder": "you@example.com",
     "request.instagramLabel": "Instagram account",
     "request.instagramPlaceholder": "@yourhandle",
-    "request.successMessage": "We've received your info. We'll reach out soon with early access to heyfrwrd.me",
+    "request.successMessage":
+      "We've received your info. We'll reach out soon with early access to heyfrwrd.me",
     "request.followUs": "Follow us on",
     "request.forMoreUpdates": "for more updates",
     "request.thankYou": "Thank you for your time!",
@@ -66,19 +74,24 @@ export const translations: TranslationType = {
     "request.constantlyFreq": "Every day",
     "request.lowPriceRange": "approx. $8-20 USD",
     "request.midPriceRange": "approx. $30-100 USD",
-    "request.highPriceRange": "approx. $100+ USD"
+    "request.highPriceRange": "approx. $100+ USD",
   },
   es: {
+    "input.requestAccess": "¡Solicita acceso anticipado!",
+    "input.submit": "Solicitar",
+    "input.placeholder": "@tuusuario",
     "request.step1Title": "¡Nos encantaría saber más sobre ti!",
     "request.step1Subtitle": "¡Queremos adaptarnos a tus necesidades!",
     "request.step2Title": "¿Cuál es tu mayor desafío?",
     "request.step2Subtitle": "Identifiquemos el principal problema a resolver.",
     "request.step3Title": "¿Cuánto engagement recibes?",
-    "request.step3Subtitle": "Es importante entender el volumen de interacciones.",
+    "request.step3Subtitle":
+      "Es importante entender el volumen de interacciones.",
     "request.step4Title": "¿Qué tan interesado estás en la automatización?",
     "request.step4Subtitle": "Evalúa tu interés en esta solución.",
     "request.step5Title": "¡Nos mantendremos en contacto contigo!",
-    "request.step5Subtitle": "Te enviaremos acceso anticipado cuando esté listo. Atento a tus DMs!",
+    "request.step5Subtitle":
+      "Te enviaremos acceso anticipado cuando esté listo. Atento a tus DMs!",
     "request.back": "Atrás",
     "request.next": "Siguiente",
     "request.submit": "Enviar",
@@ -99,9 +112,12 @@ export const translations: TranslationType = {
     "request.repetitiveInfoSub": "Siempre las mismas preguntas",
     "request.timeDMsLabel": "¿Cuánto tiempo dedicas a DMs diario?",
     "request.dailyInteractionsLabel": "¿Cuántas interacciones diarias recibes?",
-    "request.missedOpportunitiesLabel": "¿Con qué frecuencia sientes que pierdes oportunidades?",
-    "request.paymentWillingnessLabel": "¿Cuánto pagarías al mes por esta solución?",
-    "request.automationInterestLabel": "¿Qué tan interesado estás en una IA que capture datos automáticamente?",
+    "request.missedOpportunitiesLabel":
+      "¿Con qué frecuencia sientes que pierdes oportunidades?",
+    "request.paymentWillingnessLabel":
+      "¿Cuánto pagarías al mes por esta solución?",
+    "request.automationInterestLabel":
+      "¿Qué tan interesado estás en una IA que capture datos automáticamente?",
     "request.veryInterested": "Muy interesado",
     "request.veryInterestedSub": "Lo necesito ya",
     "request.interested": "Interesado",
@@ -114,7 +130,8 @@ export const translations: TranslationType = {
     "request.emailPlaceholder": "tu@email.com",
     "request.instagramLabel": "Cuenta de Instagram",
     "request.instagramPlaceholder": "@tuusuario",
-    "request.successMessage": "Hemos recibido tu información. Te contactaremos pronto con acceso anticipado a heyfrwrd.me",
+    "request.successMessage":
+      "Hemos recibido tu información. Te contactaremos pronto con acceso anticipado a heyfrwrd.me",
     "request.followUs": "Síguenos en",
     "request.forMoreUpdates": "para más actualizaciones",
     "request.thankYou": "¡Agradecemos tu tiempo!",
@@ -126,22 +143,22 @@ export const translations: TranslationType = {
     "request.constantlyFreq": "Todos los días",
     "request.lowPriceRange": "aprox. 208–521 HNL",
     "request.midPriceRange": "aprox. 781–2,614.99 HNL",
-    "request.highPriceRange": "aprox. 2,614.99+ HNL"
-  }
+    "request.highPriceRange": "aprox. 2,614.99+ HNL",
+  },
 };
 
 // Translation function
-export function getTranslation(key: string, language: 'en' | 'es'): string {
+export function getTranslation(key: string, language: "en" | "es"): string {
   return translations[language][key] || key;
 }
 
 // Get current language from URL
-export function getCurrentLanguage(): 'en' | 'es' {
-  if (typeof window !== 'undefined') {
+export function getCurrentLanguage(): "en" | "es" {
+  if (typeof window !== "undefined") {
     const path = window.location.pathname;
-    if (path.startsWith('/en/')) {
-      return 'en';
+    if (path.startsWith("/en/") || path.startsWith("/en")) {
+      return "en";
     }
   }
-  return 'es'; // Default to Spanish
+  return "es"; // Default to Spanish
 }
