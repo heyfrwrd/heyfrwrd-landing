@@ -15,8 +15,8 @@ const currentLanguage = getLanguageFromPath(Astro.url.pathname);
     alt=""
     fetchpriority="high"
   />
-  <main class="flex justify-center min-h-[calc(100vh-56px)] w-fit">
-    <section id="hero" class="flex items-center flex-col justify-center p-4">
+  <main class="flex justify-center min-h-[calc(100vh-56px)] w-full">
+    <section id="hero" class="flex items-center flex-col justify-center">
       <ComingSoon client:load language={currentLanguage} />
     </section>
   </main>

@@ -31,7 +31,7 @@ export default function ComingSoon({
   const rest = match ? rawHeadline.replace(/<0>.+?<\/0>/, "") : rawHeadline;
 
   return (
-    <div className="relative overflow-hidden min-h-[500px]">
+    <div className="flex flex-col overflow-hidden min-h-[500px] w-full">
       {/*   {sparkles.map((s, i) => (
         <div
           key={i}
@@ -46,7 +46,7 @@ export default function ComingSoon({
         </div>
       ))} */}
 
-      <div className="flex flex-col items-center justify-start px-10 text-center max-w-6xl mx-auto py-16">
+      <div className="flex flex-col items-center justify-center px-10 text-center w-full md:max-w-6xl mx-auto py-16">
         <div
           className="fade-up flex items-center gap-2 bg-transparent rounded-md p-2 border border-gray-700/20 mb-2"
           style={{ animationDelay: "0.2s" }}
