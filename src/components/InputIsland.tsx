@@ -1,6 +1,6 @@
 "use client";
 import * as React from "react";
-import { getCurrentLanguage, getTranslation, getLanguagePrefix } from "@/utils/translations";
+import { getTranslation, getLanguagePrefix } from "@/utils/translations";
 import {
   InputButtonProvider,
   InputButton,
@@ -9,17 +9,15 @@ import {
   InputButtonSubmit,
 } from "@/components/animate-ui/buttons/input";
 
-export default function InputIsland() {
+interface InputIslandProps {
+  language: "en" | "es";
+}
+
+export default function InputIsland({ language }: InputIslandProps) {
   const [handle, setHandle] = React.useState("");
-  const [language, setLanguage] = React.useState<"en" | "es">("es");
 
   // Helper function for translations
   const t = (key: string) => getTranslation(key, language);
-
-  // Get the current language on component mount
-  React.useEffect(() => {
-    setLanguage(getCurrentLanguage());
-  }, []);
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();

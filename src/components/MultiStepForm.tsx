@@ -3,7 +3,7 @@
 import type React from "react";
 import { useEffect, useState } from "react";
 import confetti from "canvas-confetti";
-import { getCurrentLanguage, getTranslation } from "@/utils/translations";
+import { getTranslation } from "@/utils/translations";
 
 import { Formik, Form, Field } from "formik";
 import {
@@ -139,11 +139,14 @@ const OptionCard: React.FC<OptionCardProps> = ({
   );
 };
 
-export default function MultiStepForm() {
+interface MultiStepFormProps {
+  language: "en" | "es";
+}
+
+export default function MultiStepForm({ language }: MultiStepFormProps) {
   const [currentStep, setCurrentStep] = useState(0);
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [isSubmitted, setIsSubmitted] = useState(false);
-  const [language, setLanguage] = useState<"en" | "es">("es");
   const [savedInstagram, setSavedInstagram] = useState("");
 
   // Helper function to replace useTranslation with formatting support
@@ -151,9 +154,6 @@ export default function MultiStepForm() {
     getTranslation(key, language, params);
 
   useEffect(() => {
-    // Get language from URL
-    setLanguage(getCurrentLanguage());
-
     const handle = window.sessionStorage.getItem("instagram_handle") || "";
     setSavedInstagram(handle);
   }, []);

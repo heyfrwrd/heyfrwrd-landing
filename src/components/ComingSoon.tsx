@@ -4,7 +4,7 @@ import React, { useEffect, useState } from "react";
 import { Sparkles } from "lucide-react";
 import InputIsland from "./InputIsland";
 import SocialIcons from "./SocialIcons";
-import { getCurrentLanguage, getTranslation } from "@/utils/translations";
+import { getTranslation } from "@/utils/translations";
 
 const N = 12;
 const sparkles = Array.from({ length: N }).map(() => ({
@@ -14,8 +14,12 @@ const sparkles = Array.from({ length: N }).map(() => ({
   opacity: (20 + Math.random() * 50).toFixed(0),
 }));
 
-export default function ComingSoon() {
-  const [language, setLanguage] = useState<"en" | "es">("es");
+interface ComingSoonProps {
+  language: "en" | "es";
+}
+
+export default function ComingSoon({ language: initialLanguage }: ComingSoonProps) {
+  const [language, setLanguage] = useState<"en" | "es">(initialLanguage);
   const t = (key: string, params?: Record<string, string | number>) =>
     getTranslation(key, language, params);
 
@@ -24,9 +28,6 @@ export default function ComingSoon() {
   const first = match ? match[1] : "";
   const rest = match ? rawHeadline.replace(/<0>.+?<\/0>/, "") : rawHeadline;
 
-  useEffect(() => {
-    setLanguage(getCurrentLanguage());
-  }, []);
 
   return (
     <div className="relative overflow-hidden min-h-[500px]">
@@ -67,7 +68,7 @@ export default function ComingSoon() {
         </div>
 
         <div className="fade-up mb-8" style={{ animationDelay: "0.8s" }}>
-          <InputIsland />
+          <InputIsland language={language} />
         </div>
 
         <div className="fade-up" style={{ animationDelay: "1s" }}>

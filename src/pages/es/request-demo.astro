@@ -1,8 +1,12 @@
 ---
 import MultiStepForm from "@/components/MultiStepForm";
 import Layout from "@/layouts/Layout.astro";
+import { getLanguageFromPath } from "@/utils/translations";
+
+// Get language from current URL path
+const currentLanguage = getLanguageFromPath(Astro.url.pathname);
 ---
 
 <Layout>
-  <MultiStepForm client:load />
+  <MultiStepForm client:load language={currentLanguage} />
 </Layout>
