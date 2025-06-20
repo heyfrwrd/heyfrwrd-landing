@@ -1,0 +1,11 @@
+{
+  "site": {
+    "title": "¡Mi sitio increíble!",
+    "description": "Aquí va la descripción de mi sitio increíble."
+  },
+  "home": {
+    "soon": "¡Próximamente!",
+    "headline": "Automatiza tus DMs con IA que suena como tú",
+    "subtext": "Convierte cada interacción en una oportunidad real, genera más leads y ofrece una experiencia auténtica que fideliza a tu audiencia."
+  }
+}

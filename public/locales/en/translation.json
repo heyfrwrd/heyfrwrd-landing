@@ -1,0 +1,11 @@
+{
+  "site": {
+    "title": "My awesome website!",
+    "description": "Here is the description of my awesome website!"
+  },
+  "home": {
+    "soon": "Coming soon!",
+    "headline": "Automate your DMs with AI that sounds like you",
+    "subtext": "Turn every interaction into a real opportunity, generate more leads and offer an authentic experience that keeps your audience coming back."
+  }
+}
