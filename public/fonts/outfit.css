@@ -1,0 +1,46 @@
+/* Outfit Font */
+@font-face {
+  font-family: 'Outfit';
+  font-style: normal;
+  font-weight: 100 900; /* Variable font */
+  font-display: swap;
+  src: url('./Outfit-VariableFont_wght.woff2') format('woff2'),
+       url('./Outfit-VariableFont_wght.woff') format('woff');
+}
+
+/* Fallback for browsers that don't support variable fonts */
+@font-face {
+  font-family: 'Outfit';
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+  src: url('./Outfit-Regular.woff2') format('woff2'),
+       url('./Outfit-Regular.woff') format('woff');
+}
+
+@font-face {
+  font-family: 'Outfit';
+  font-style: normal;
+  font-weight: 500;
+  font-display: swap;
+  src: url('./Outfit-Medium.woff2') format('woff2'),
+       url('./Outfit-Medium.woff') format('woff');
+}
+
+@font-face {
+  font-family: 'Outfit';
+  font-style: normal;
+  font-weight: 600;
+  font-display: swap;
+  src: url('./Outfit-SemiBold.woff2') format('woff2'),
+       url('./Outfit-SemiBold.woff') format('woff');
+}
+
+@font-face {
+  font-family: 'Outfit';
+  font-style: normal;
+  font-weight: 700;
+  font-display: swap;
+  src: url('./Outfit-Bold.woff2') format('woff2'),
+       url('./Outfit-Bold.woff') format('woff');
+}

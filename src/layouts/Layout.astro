@@ -25,7 +25,6 @@ const canonicalUrl = new URL(path, SITE_URL).toString();
     <title>{i18next.t("site.title")}</title>
     <meta name="description" content={i18next.t("site.description")} />
 
-    <!-- TODO: Create proper social media preview images (1200x630px for OG, 1200x600px for Twitter) -->
     <!-- Open Graph / Facebook -->
     <meta property="og:type" content="website" />
     <meta property="og:url" content={canonicalUrl} />
@@ -49,21 +48,15 @@ const canonicalUrl = new URL(path, SITE_URL).toString();
     <meta name="twitter:description" content={i18next.t("site.description")} />
     <meta name="twitter:image" content={`${SITE_URL}/src/assets/og.webp`} />
 
-    <!-- Google Fonts optimized -->
-    <link rel="preconnect" href="https://fonts.googleapis.com" />
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <!-- Self-hosted Outfit font -->
     <link
       rel="preload"
-      as="style"
-      href="https://fonts.googleapis.com/css2?family=Outfit:wght@100..900&display=swap"
-      onload="this.onload=null;this.rel='stylesheet'"
+      href="/fonts/Outfit-VariableFont_wght.woff2"
+      as="font"
+      type="font/woff2"
+      crossorigin
     />
-    <noscript>
-      <link
-        rel="stylesheet"
-        href="https://fonts.googleapis.com/css2?family=Outfit:wght@100..900&display=swap"
-      />
-    </noscript>
+    <link rel="stylesheet" href="/fonts/outfit.css" />
 
     <!-- Schema.org JSON-LD -->
     <script
