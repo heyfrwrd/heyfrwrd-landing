@@ -1,12 +1,14 @@
 ---
-import Header from "@/components/Header.astro";
+import Header from "@/components/Header.tsx";
 import "@/styles/global.css";
 import SpeedInsights from "@vercel/speed-insights/astro";
 
-// Basic configuration
-const currentLocale = Astro.currentLocale || "en";
-const SITE = import.meta.env.SITE || "http://localhost:4321";
+// Basic configuration - detect language from URL
 const path = Astro.url.pathname;
+const currentLocale = (path.startsWith("/en/") || path === "/en") ? "en" : "es";
+
+console.log(currentLocale, "detected from path:", path);
+const SITE = import.meta.env.SITE || "http://localhost:4321";
 
 // Simple URL preparation
 let SITE_URL = SITE;
@@ -128,7 +130,7 @@ const jsonLdString = JSON.stringify(jsonLdObj);
     <script type="application/ld+json" set:html={jsonLdString} />
   </head>
   <body class="max-h-screen m-0 w-full">
-    <Header />
+    <Header client:load locale={currentLocale} />
     <slot />
     <SpeedInsights />
   </body>

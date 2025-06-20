@@ -194,31 +194,32 @@ export function getTranslation(
   return text;
 }
 
+// Extract language from a given path
+export function getLanguageFromPath(path: string): "en" | "es" {
+  if (!path) return "es";
+  
+  // Check for English routes (explicit /en prefix)
+  if (path.startsWith("/en/") || path === "/en") {
+    return "en";
+  }
+  
+  // Spanish is the default - any other path without /en is Spanish
+  return "es";
+}
+
 // Get current language from URL or browser preferences
 export function getCurrentLanguage(): "en" | "es" {
   // First check URL path for language
   if (typeof window !== "undefined") {
-    const path = window.location.pathname;
-    if (path.startsWith("/en/") || path.startsWith("/en")) {
-      return "en";
-    }
-    if (path.startsWith("/es/") || path.startsWith("/es")) {
-      return "es";
-    }
-
-    // If no language in URL, check browser language preferences
-    const browserLang = getBrowserLanguage();
-    if (browserLang) {
-      return browserLang;
-    }
+    return getLanguageFromPath(window.location.pathname);
   }
 
-  return "es"; // Default to Spanish if nothing else determined
+  return "es"; // Default to Spanish if no window (SSR)
 }
 
 // Get language prefix for URL paths
 export function getLanguagePrefix(language: "en" | "es" = "es"): string {
-  return language === "en" ? "/en" : "/es";
+  return language === "en" ? "/en" : "";
 }
 
 // Detect browser language preference
