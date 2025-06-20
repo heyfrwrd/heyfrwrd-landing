@@ -31,20 +31,23 @@ const canonicalUrl = new URL(path, SITE_URL).toString();
     <meta property="og:url" content={canonicalUrl} />
     <meta property="og:title" content={i18next.t("site.title")} />
     <meta property="og:description" content={i18next.t("site.description")} />
-    <meta property="og:image" content={`${SITE_URL}/src/assets/logo.png`} />
+    <meta property="og:image" content={`${SITE_URL}/src/assets/og.webp`} />
     <meta property="og:image:width" content="1200" />
     <meta property="og:image:height" content="630" />
-    <meta property="og:locale" content={currentLocale === "es" ? "es_ES" : "en_US"} />
+    <meta
+      property="og:locale"
+      content={currentLocale === "es" ? "es_ES" : "en_US"}
+    />
     <meta property="og:site_name" content="heyfrwrd.me" />
 
     <!-- Twitter -->
     <meta name="twitter:card" content="summary_large_image" />
-    <meta name="twitter:site" content="@heyfrwrd" />
-    <meta name="twitter:creator" content="@heyfrwrd" />
+    <meta name="twitter:site" content="@heyfrwrdme" />
+    <meta name="twitter:creator" content="@heyfrwrdme" />
     <meta name="twitter:url" content={canonicalUrl} />
     <meta name="twitter:title" content={i18next.t("site.title")} />
     <meta name="twitter:description" content={i18next.t("site.description")} />
-    <meta name="twitter:image" content={`${SITE_URL}/src/assets/logo.png`} />
+    <meta name="twitter:image" content={`${SITE_URL}/src/assets/og.webp`} />
 
     <!-- Google Fonts optimized -->
     <link rel="preconnect" href="https://fonts.googleapis.com" />
@@ -63,63 +66,66 @@ const canonicalUrl = new URL(path, SITE_URL).toString();
     </noscript>
 
     <!-- Schema.org JSON-LD -->
-    <script type="application/ld+json" set:html={JSON.stringify({
-      "@context": "https://schema.org",
-      "@graph": [
-        {
-          "@type": "Organization",
-          "@id": `${SITE_URL}#organization`,
-          "name": i18next.t("site.title"),
-          "url": SITE_URL,
-          "logo": {
-            "@type": "ImageObject",
-            "url": `${SITE_URL}/favicon.svg`,
-            "width": "512",
-            "height": "512"
+    <script
+      type="application/ld+json"
+      set:html={JSON.stringify({
+        "@context": "https://schema.org",
+        "@graph": [
+          {
+            "@type": "Organization",
+            "@id": `${SITE_URL}#organization`,
+            name: i18next.t("site.title"),
+            url: SITE_URL,
+            logo: {
+              "@type": "ImageObject",
+              url: `${SITE_URL}/favicon.svg`,
+              width: "512",
+              height: "512",
+            },
+            description: i18next.t("site.description"),
+            sameAs: [
+              "https://twitter.com/heyfrwrd",
+              "https://instagram.com/heyfrwrd",
+            ],
           },
-          "description": i18next.t("site.description"),
-          "sameAs": [
-            "https://twitter.com/heyfrwrd",
-            "https://instagram.com/heyfrwrd"
-          ]
-        },
-        {
-          "@type": "WebSite",
-          "@id": `${SITE_URL}#website`,
-          "url": SITE_URL,
-          "name": i18next.t("site.title"),
-          "description": i18next.t("site.description"),
-          "publisher": {
-            "@id": `${SITE_URL}#organization`
-          },
-          "inLanguage": currentLocale,
-          "potentialAction": {
-            "@type": "ReadAction",
-            "target": [SITE_URL]
-          }
-        },
-        {
-          "@type": "WebPage",
-          "@id": canonicalUrl,
-          "url": canonicalUrl,
-          "name": i18next.t("site.title"),
-          "isPartOf": {
-            "@id": `${SITE_URL}#website`
-          },
-          "about": {
-            "@id": `${SITE_URL}#organization`
-          },
-          "description": i18next.t("site.description"),
-          "inLanguage": currentLocale,
-          "potentialAction": [
-            {
+          {
+            "@type": "WebSite",
+            "@id": `${SITE_URL}#website`,
+            url: SITE_URL,
+            name: i18next.t("site.title"),
+            description: i18next.t("site.description"),
+            publisher: {
+              "@id": `${SITE_URL}#organization`,
+            },
+            inLanguage: currentLocale,
+            potentialAction: {
               "@type": "ReadAction",
-              "target": [canonicalUrl]
-            }
-          ]
-        }
-      ]
-    })}></script>
+              target: [SITE_URL],
+            },
+          },
+          {
+            "@type": "WebPage",
+            "@id": canonicalUrl,
+            url: canonicalUrl,
+            name: i18next.t("site.title"),
+            isPartOf: {
+              "@id": `${SITE_URL}#website`,
+            },
+            about: {
+              "@id": `${SITE_URL}#organization`,
+            },
+            description: i18next.t("site.description"),
+            inLanguage: currentLocale,
+            potentialAction: [
+              {
+                "@type": "ReadAction",
+                target: [canonicalUrl],
+              },
+            ],
+          },
+        ],
+      })}
+    />
   </head>
   <body class="max-h-screen m-0 w-full">
     <Header />
