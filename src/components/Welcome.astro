@@ -1,6 +1,6 @@
 ---
 import background from "@/assets/background.svg";
-import ComingSoon from "./ComingSoon.astro";
+import ComingSoon from "./ComingSoon";
 ---
 
 <div id="container" class="h-full">
@@ -13,7 +13,7 @@ import ComingSoon from "./ComingSoon.astro";
   />
   <main class="flex justify-center min-h-[calc(100vh-56px)]">
     <section id="hero" class="flex items-center flex-col justify-center p-4">
-      <ComingSoon />
+      <ComingSoon client:load />
     </section>
   </main>
 </div>

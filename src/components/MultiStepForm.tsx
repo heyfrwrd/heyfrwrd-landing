@@ -144,12 +144,12 @@ export default function MultiStepForm() {
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [isSubmitted, setIsSubmitted] = useState(false);
   const [language, setLanguage] = useState<"en" | "es">("es");
+  const [savedInstagram, setSavedInstagram] = useState("");
 
   // Helper function to replace useTranslation with formatting support
   const t = (key: string, params?: Record<string, string | number>) =>
     getTranslation(key, language, params);
 
-  const [savedInstagram, setSavedInstagram] = useState("");
   useEffect(() => {
     // Get language from URL
     setLanguage(getCurrentLanguage());

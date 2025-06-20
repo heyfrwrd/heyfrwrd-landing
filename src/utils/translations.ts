@@ -1,5 +1,3 @@
-// Simple direct translation helper for the MultiStepForm component
-
 // Translation type
 type TranslationType = {
   en: Record<string, string>;
@@ -9,7 +7,21 @@ type TranslationType = {
 // Translations
 export const translations: TranslationType = {
   en: {
+    // site
+    "site.title": "heyfrwrd.me!",
+    "site.description":
+      "Automate your social media DMs with AI that responds just like you. Boost engagement, generate leads, and deliver authentic conversations effortlessly.",
+
+    // home
+    "home.soon": "Coming soon!",
+    "home.headline": "<0>Automate</0> your DMs with AI that sounds like you",
+    "home.subtext":
+      "Turn every interaction into a real opportunity, generate more leads and offer an authentic experience that keeps your audience coming back.",
+
+    // request.*
+    "request.pageTitle": "<0>Request</0> early access",
     "request.stepCounter": "Step {{current}} of {{total}}",
+
     "input.requestAccess": "Request early access!",
     "input.submit": "Request",
     "input.placeholder": "@your_instagram",
@@ -78,6 +90,19 @@ export const translations: TranslationType = {
     "request.highPriceRange": "approx. $100+ USD",
   },
   es: {
+    // site
+    "site.title": "¡heyfrwrd.me!",
+    "site.description":
+      "Automatiza tus mensajes directos con IA personalizada y haz crecer tu comunidad de manera auténtica.",
+
+    // home
+    "home.soon": "¡Próximamente!",
+    "home.headline": "<0>Automatiza</0> tus DMs con IA que suena como tú",
+    "home.subtext":
+      "Convierte cada interacción en una oportunidad real, genera más leads y ofrece una experiencia auténtica que fideliza a tu audiencia.",
+
+    // request.*
+    "request.pageTitle": "<0>Solicitar</0> acceso anticipado",
     "request.stepCounter": "Paso {{current}} de {{total}}",
     "input.requestAccess": "¡Solicita acceso anticipado!",
     "input.submit": "Solicitar",
@@ -151,19 +176,21 @@ export const translations: TranslationType = {
 
 // Translation function with formatting support
 export function getTranslation(
-  key: string, 
-  language: "en" | "es", 
+  key: string,
+  language: "en" | "es",
   params?: Record<string, string | number>
 ): string {
   let text = translations[language][key] || key;
-  
-  // Replace parameters if provided
+
   if (params) {
     Object.entries(params).forEach(([paramKey, paramValue]) => {
-      text = text.replace(new RegExp(`{{${paramKey}}}`, 'g'), String(paramValue));
+      text = text.replace(
+        new RegExp(`{{${paramKey}}}`, "g"),
+        String(paramValue)
+      );
     });
   }
-  
+
   return text;
 }
 
