@@ -152,13 +152,59 @@ export function getTranslation(key: string, language: "en" | "es"): string {
   return translations[language][key] || key;
 }
 
-// Get current language from URL
+// Get current language from URL or browser preferences
 export function getCurrentLanguage(): "en" | "es" {
+  // First check URL path for language
   if (typeof window !== "undefined") {
     const path = window.location.pathname;
     if (path.startsWith("/en/") || path.startsWith("/en")) {
       return "en";
     }
+    if (path.startsWith("/es/") || path.startsWith("/es")) {
+      return "es";
+    }
+
+    // If no language in URL, check browser language preferences
+    const browserLang = getBrowserLanguage();
+    if (browserLang) {
+      return browserLang;
+    }
   }
-  return "es"; // Default to Spanish
+
+  return "es"; // Default to Spanish if nothing else determined
+}
+
+// Get language prefix for URL paths
+export function getLanguagePrefix(language: "en" | "es" = "es"): string {
+  return language === "en" ? "/en" : "/es";
+}
+
+// Detect browser language preference
+function getBrowserLanguage(): "en" | "es" | null {
+  if (typeof window === "undefined" || !window.navigator) {
+    return null;
+  }
+
+  // Get browser language
+  const browserLang =
+    window.navigator.language ||
+    (window.navigator as any).userLanguage ||
+    (window.navigator as any).browserLanguage ||
+    (window.navigator as any).systemLanguage;
+
+  if (!browserLang) {
+    return null;
+  }
+
+  // Check if browser language starts with 'en'
+  if (browserLang.toLowerCase().startsWith("en")) {
+    return "en";
+  }
+
+  // Check if browser language starts with 'es'
+  if (browserLang.toLowerCase().startsWith("es")) {
+    return "es";
+  }
+
+  return null; // No matching language found
 }

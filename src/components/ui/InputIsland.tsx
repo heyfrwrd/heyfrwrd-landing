@@ -1,6 +1,6 @@
 "use client";
 import * as React from "react";
-import { getCurrentLanguage, getTranslation } from "@/utils/translations";
+import { getCurrentLanguage, getTranslation, getLanguagePrefix } from "@/utils/translations";
 import {
   InputButtonProvider,
   InputButton,
@@ -25,8 +25,15 @@ export default function InputIsland() {
     e.preventDefault();
     const trimmed = handle.trim();
     if (!trimmed) return;
+    
+    // Store the handle in session storage
     window.sessionStorage.setItem("instagram_handle", trimmed);
-    window.location.href = "/request-demo";
+    
+    // Get the current language prefix for the URL
+    const langPrefix = getLanguagePrefix(language);
+    
+    // Redirect to the request-demo page with the current language prefix
+    window.location.href = `${langPrefix}/request-demo`;
   };
 
   return (
