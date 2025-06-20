@@ -1,0 +1,11 @@
+---
+import { changeLanguage } from "i18next";
+import MultiStepForm from "@/components/MultiStepForm";
+import Layout from "@/layouts/Layout.astro";
+
+changeLanguage("en");
+---
+
+<Layout>
+  <MultiStepForm client:load />
+</Layout>
