@@ -3,6 +3,7 @@
 import type React from "react";
 import { useEffect, useState } from "react";
 import confetti from "canvas-confetti";
+import { getCurrentLanguage, getTranslation } from "../utils/translations";
 
 import { Formik, Form, Field } from "formik";
 import {
@@ -142,9 +143,16 @@ export default function MultiStepForm() {
   const [currentStep, setCurrentStep] = useState(0);
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [isSubmitted, setIsSubmitted] = useState(false);
+  const [language, setLanguage] = useState<'en' | 'es'>('es');
+
+  // Helper function to replace useTranslation
+  const t = (key: string) => getTranslation(key, language);
 
   const [savedInstagram, setSavedInstagram] = useState("");
   useEffect(() => {
+    // Get language from URL
+    setLanguage(getCurrentLanguage());
+    
     const handle = window.sessionStorage.getItem("instagram_handle") || "";
     setSavedInstagram(handle);
   }, []);
@@ -153,25 +161,24 @@ export default function MultiStepForm() {
 
   const steps = [
     {
-      title: "¡Nos encantaría saber más sobre ti!",
-      subtitle: "¡Queremos adaptarnos a tus necesidades!",
+      title: t("request.step1Title"),
+      subtitle: t("request.step1Subtitle"),
     },
     {
-      title: "¿Cuál es tu mayor desafío?",
-      subtitle: "Identifiquemos el principal problema a resolver.",
+      title: t("request.step2Title"),
+      subtitle: t("request.step2Subtitle"),
     },
     {
-      title: "¿Cuánto engagement recibes?",
-      subtitle: "Es importante entender el volumen de interacciones.",
+      title: t("request.step3Title"),
+      subtitle: t("request.step3Subtitle"),
     },
     {
-      title: "¿Qué tan interesado estás en la automatización?",
-      subtitle: "Evalúa tu interés en esta solución.",
+      title: t("request.step4Title"),
+      subtitle: t("request.step4Subtitle"),
     },
     {
-      title: "¡Nos mantendremos en contacto contigo!",
-      subtitle:
-        "Te enviaremos acceso anticipado cuando esté listo. Atento a tus DMs!",
+      title: t("request.step5Title"),
+      subtitle: t("request.step5Subtitle"),
     },
   ];
 
@@ -205,21 +212,20 @@ export default function MultiStepForm() {
               <CheckCircle className="w-8 h-8 text-green-600" />
             </div>
             <h2 className="text-2xl font-bold text-gray-900 mb-4">
-              ¡Agradecemos tu tiempo!
+              {t("request.thankYou")}
             </h2>
             <p className="text-gray-600 mb-6">
-              Hemos recibido tu información. Te contactaremos pronto con acceso
-              anticipado a heyfrwrd.me
+              {t("request.successMessage")}
             </p>
             <div className="text-sm  font-medium">
-              Síguenos en{" "}
+              {t("request.followUs")}{" "}
               <a
                 className="text-[#683fe7] hover:text-[#683fe7]/80"
                 href="https://www.instagram.com/heyfrwrd"
               >
                 @heyfrwrd{" "}
               </a>{" "}
-              para más actualizaciones
+              {t("request.forMoreUpdates")}
             </div>
           </div>
         </div>
@@ -279,14 +285,14 @@ export default function MultiStepForm() {
                     <div className="space-y-8">
                       <div>
                         <label className="block text-lg font-medium text-gray-700 mb-4">
-                          ¿Qué tipo de creador eres? *
+                          {t("request.creatorTypeLabel")} *
                         </label>
                         <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
                           {/* Influencer Option */}
                           <OptionCard
                             icon={<Users className="w-6 h-6" />}
-                            title="Influencer"
-                            subtitle="Blog personal, estilo de vida..."
+                            title={t("request.influencer")}
+                            subtitle={t("request.influencerSub")}
                             value="influencer"
                             selectedValue={values.creatorType}
                             onClick={(value) =>
@@ -296,8 +302,8 @@ export default function MultiStepForm() {
                           {/* Coach/Mentor Option */}
                           <OptionCard
                             icon={<Target className="w-6 h-6" />}
-                            title="Coach/Mentor"
-                            subtitle="Negocios, fitness..."
+                            title={t("request.coach")}
+                            subtitle={t("request.coachSub")}
                             value="coach"
                             selectedValue={values.creatorType}
                             onClick={(value) =>
@@ -307,8 +313,8 @@ export default function MultiStepForm() {
                           {/* Entrepreneur Option */}
                           <OptionCard
                             icon={<TrendingUp className="w-6 h-6" />}
-                            title="Emprendedor"
-                            subtitle="Productos/servicios"
+                            title={t("request.entrepreneur")}
+                            subtitle={t("request.entrepreneurSub")}
                             value="entrepreneur"
                             selectedValue={values.creatorType}
                             onClick={(value) =>
@@ -320,7 +326,7 @@ export default function MultiStepForm() {
 
                       <div>
                         <label className="block text-lg font-medium text-gray-700 mb-4">
-                          ¿Cuántos seguidores tienes? *
+                          {t("request.followersCountLabel")} *
                         </label>
                         <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
                           {/* 1K–10K */}
@@ -358,7 +364,7 @@ export default function MultiStepForm() {
 
                       <div>
                         <label className="block text-lg font-medium text-gray-700 mb-4">
-                          ¿Cuál es tu plataforma principal? *
+                          {t("request.platformLabel")} *
                         </label>
                         <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
                           {/* Instagram */}
@@ -401,14 +407,14 @@ export default function MultiStepForm() {
                     <div className="space-y-8">
                       <div>
                         <label className="block text-lg font-medium text-gray-700 mb-4">
-                          ¿Cuál es tu mayor desafío con los DMs? *
+                          {t("request.challengeLabel")} *
                         </label>
                         <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                           {/* Time challenge */}
                           <OptionCard
                             icon={<Clock className="w-6 h-6" />}
-                            title="Falta de tiempo"
-                            subtitle="No alcanzo a responder todo"
+                            title={t("request.timeChallenge")}
+                            subtitle={t("request.timeChallengeSub")}
                             value="time"
                             selectedValue={values.biggestChallenge}
                             onClick={(value) =>
@@ -418,8 +424,8 @@ export default function MultiStepForm() {
                           {/* Repetitive info challenge */}
                           <OptionCard
                             icon={<MessageCircle className="w-6 h-6" />}
-                            title="Información repetitiva"
-                            subtitle="Siempre las mismas preguntas"
+                            title={t("request.repetitiveInfo")}
+                            subtitle={t("request.repetitiveInfoSub")}
                             value="repetitive"
                             selectedValue={values.biggestChallenge}
                             onClick={(value) =>
@@ -431,7 +437,7 @@ export default function MultiStepForm() {
 
                       <div>
                         <label className="block text-lg font-medium text-gray-700 mb-4">
-                          ¿Cuánto tiempo dedicas a DMs diario? *
+                          {t("request.timeDMsLabel")} *
                         </label>
                         <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
                           {/* 30min–1h */}
@@ -474,7 +480,7 @@ export default function MultiStepForm() {
                     <div className="space-y-8">
                       <div>
                         <label className="block text-lg font-medium text-gray-700 mb-4">
-                          ¿Cuántas interacciones diarias recibes? *
+                          {t("request.dailyInteractionsLabel")} *
                         </label>
                         <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
                           {/* 10–50 */}
@@ -512,15 +518,15 @@ export default function MultiStepForm() {
 
                       <div>
                         <label className="block text-lg font-medium text-gray-700 mb-4">
-                          ¿Con qué frecuencia sientes que pierdes oportunidades?
+                          {t("request.missedOpportunitiesLabel")}
                           *
                         </label>
                         <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
                           {/* Rarely */}
                           <OptionCard
                             icon={<TrendingDown className="w-6 h-6" />}
-                            title="Raramente"
-                            subtitle="1-2 veces/mes"
+                            title={t("request.rarely")}
+                            subtitle={t("request.rarelyFreq")}
                             value="rarely"
                             selectedValue={values.missedOpportunities}
                             onClick={(value) =>
@@ -530,8 +536,8 @@ export default function MultiStepForm() {
                           {/* Often */}
                           <OptionCard
                             icon={<TrendingUpDown className="w-6 h-6" />}
-                            title="A menudo"
-                            subtitle="Varias veces/semana"
+                            title={t("request.often")}
+                            subtitle={t("request.oftenFreq")}
                             value="often"
                             selectedValue={values.missedOpportunities}
                             onClick={(value) =>
@@ -541,8 +547,8 @@ export default function MultiStepForm() {
                           {/* Constantly */}
                           <OptionCard
                             icon={<TrendingUp className="w-6 h-6" />}
-                            title="Constantemente"
-                            subtitle="Todos los días"
+                            title={t("request.constantly")}
+                            subtitle={t("request.constantlyFreq")}
                             value="constantly"
                             selectedValue={values.missedOpportunities}
                             onClick={(value) =>
@@ -559,13 +565,13 @@ export default function MultiStepForm() {
                     <div className="space-y-8">
                       <div>
                         <label className="block text-lg font-medium text-gray-700 mb-4">
-                          ¿Cuánto pagarías al mes por esta solución? *
+                          {t("request.paymentWillingnessLabel")} *
                         </label>
                         <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
                           <OptionCard
                             icon={<CircleDollarSign className="w-6 h-6" />}
                             title="$8–20"
-                            subtitle="aprox. 208-521 HNL "
+                            subtitle={t("request.lowPriceRange")}
                             value="8-20"
                             selectedValue={values.paymentWillingness}
                             onClick={(value) =>
@@ -575,7 +581,7 @@ export default function MultiStepForm() {
                           <OptionCard
                             icon={<Handshake className="w-6 h-6" />}
                             title="$30–100"
-                            subtitle="aprox. 781-2,614.99 HNL"
+                            subtitle={t("request.midPriceRange")}
                             value="30-100"
                             selectedValue={values.paymentWillingness}
                             onClick={(value) =>
@@ -585,7 +591,7 @@ export default function MultiStepForm() {
                           <OptionCard
                             icon={<PiggyBank className="w-6 h-6" />}
                             title="$100+"
-                            subtitle="aprox. 2,614.99 HNL"
+                            subtitle={t("request.highPriceRange")}
                             value="100+"
                             selectedValue={values.paymentWillingness}
                             onClick={(value) =>
@@ -597,14 +603,13 @@ export default function MultiStepForm() {
 
                       <div>
                         <label className="block text-lg font-medium text-gray-700 mb-4">
-                          ¿Qué tan interesado estás en una IA que capture datos
-                          automáticamente? *
+                          {t("request.automationInterestLabel")} *
                         </label>
                         <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
                           <OptionCard
                             icon={<BicepsFlexed className="w-6 h-6" />}
-                            title="Muy interesado"
-                            subtitle="Lo necesito ya"
+                            title={t("request.veryInterested")}
+                            subtitle={t("request.veryInterestedSub")}
                             value="very-interested"
                             selectedValue={values.automationInterest}
                             onClick={(value) =>
@@ -613,8 +618,8 @@ export default function MultiStepForm() {
                           />
                           <OptionCard
                             icon={<HeartHandshake className="w-6 h-6" />}
-                            title="Interesado"
-                            subtitle="Me gustaría probarlo"
+                            title={t("request.interested")}
+                            subtitle={t("request.interestedSub")}
                             value="interested"
                             selectedValue={values.automationInterest}
                             onClick={(value) =>
@@ -623,8 +628,8 @@ export default function MultiStepForm() {
                           />
                           <OptionCard
                             icon={<HeartCrack className="w-6 h-6" />}
-                            title="Poco interesado"
-                            subtitle="Tal vez luego"
+                            title={t("request.notInterested")}
+                            subtitle={t("request.notInterestedSub")}
                             value="not-interested"
                             selectedValue={values.automationInterest}
                             onClick={(value) =>
@@ -644,13 +649,13 @@ export default function MultiStepForm() {
                           htmlFor="name"
                           className="block text-sm font-medium text-gray-700 mb-2"
                         >
-                          Nombre *
+                          {t("request.nameLabel")} *
                         </label>
                         <Field
                           type="text"
                           name="name"
                           className="w-full px-4 py-3 border-2 border-gray-200 rounded-md focus:ring-0 focus:border-black placeholder:text-gray-300 focus-visible:outline-0"
-                          placeholder="Tu nombre completo"
+                          placeholder={t("request.namePlaceholder")}
                         />
                       </div>
 
@@ -659,13 +664,13 @@ export default function MultiStepForm() {
                           htmlFor="email"
                           className="block text-sm font-medium text-gray-700 mb-2"
                         >
-                          Email *
+                          {t("request.emailLabel")} *
                         </label>
                         <Field
                           type="email"
                           name="email"
                           className="w-full px-4 py-3 border-2 border-gray-200 rounded-md focus:ring-0 focus:border-black placeholder:text-gray-300 focus-visible:outline-0"
-                          placeholder="tu@email.com"
+                          placeholder={t("request.emailPlaceholder")}
                         />
                       </div>
 
@@ -674,13 +679,13 @@ export default function MultiStepForm() {
                           htmlFor="instagram"
                           className="block text-sm font-medium text-gray-700 mb-2"
                         >
-                          Cuenta de Instagram *
+                          {t("request.instagramLabel")} *
                         </label>
                         <Field
                           type="text"
                           name="instagram"
                           className="w-full px-4 py-3 border-2 border-gray-200 rounded-md focus:ring-0 focus:border-black placeholder:text-gray-300 focus-visible:outline-0"
-                          placeholder="@tuusuario"
+                          placeholder={t("request.instagramPlaceholder")}
                         />
                       </div>
                     </div>
@@ -704,7 +709,7 @@ export default function MultiStepForm() {
                   `}
                 >
                   <ChevronLeft className="w-4 h-4" />
-                  <span>Atrás</span>
+                  <span>{t("request.back")}</span>
                 </button>
 
                 <button
@@ -722,14 +727,14 @@ export default function MultiStepForm() {
                   {isSubmitting ? (
                     <>
                       <div className="w-4 h-4 border-2 border-white border-t-transparent rounded-full animate-spin" />
-                      <span>Enviando...</span>
+                      <span>{t("request.sending")}</span>
                     </>
                   ) : (
                     <>
                       <span>
                         {currentStep === steps.length - 1
-                          ? "Enviar"
-                          : "Siguiente"}
+                          ? t("request.submit")
+                          : t("request.next")}
                       </span>
                       <ChevronRight className="w-4 h-4" />
                     </>
