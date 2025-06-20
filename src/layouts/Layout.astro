@@ -6,37 +6,27 @@ import SpeedInsights from "@vercel/speed-insights/astro";
 
 // Basic configuration
 const currentLocale = Astro.currentLocale || "en";
-const SITE_URL = import.meta.env.SITE
-  ? import.meta.env.SITE.trim()
-  : "http://localhost:4321";
+const SITE = import.meta.env.SITE || "http://localhost:4321";
 const path = Astro.url.pathname;
 
-// Helper functions
-// Safe string concatenation for URLs
-function createUrl(base: string, path: string): string {
-  try {
-    const cleanBase = base.endsWith("/") ? base.slice(0, -1) : base;
-    const cleanPath = path.startsWith("/") ? path : `/${path}`;
-    return `${cleanBase}${cleanPath}`;
-  } catch (error) {
-    console.error("Error creating URL:", error);
-    // Fallback to simple concatenation
-    return base + (path.startsWith("/") ? path : `/${path}`);
-  }
+// Simple URL preparation
+let SITE_URL = SITE;
+if (SITE_URL.endsWith("/")) {
+  SITE_URL = SITE_URL.slice(0, -1);
 }
-// Basic URLs
-const canonicalUrl = createUrl(SITE_URL, path);
-const ogImageUrl = createUrl(SITE_URL, "/og.webp");
-const faviconUrl = createUrl(SITE_URL, "/favicon.svg");
+// Prepare all URLs with direct string concatenation
+const canonicalUrl = SITE_URL + path;
+const ogImageUrl = SITE_URL + "/og.webp";
+const faviconUrl = SITE_URL + "/favicon.svg";
 
 // Default text values for SEO
 const siteTitle = "heyfrwrd.me";
 const siteDescription =
   "Automate your social media DMs with AI that responds just like you.";
 
-// Pre-compute IDs for JSON-LD
-const organizationId = createUrl(SITE_URL, "#organization");
-const websiteId = createUrl(SITE_URL, "#website");
+// Simple ID strings for JSON-LD
+const organizationId = SITE_URL + "#organization";
+const websiteId = SITE_URL + "#website";
 // Create the JSON-LD structure safely without using i18next
 const jsonLdObj = {
   "@context": "https://schema.org",
@@ -145,40 +135,5 @@ const jsonLdString = JSON.stringify(jsonLdObj);
     <Header />
     <slot />
     <SpeedInsights />
-    <script>
-      // Client-side script to update content with translations after i18next is initialized
-      document.addEventListener("DOMContentLoaded", function () {
-        if (window.i18next && window.i18next.isInitialized) {
-          try {
-            const siteTitle = window.i18next.t("site.title") || "heyfrwrd.me";
-            const siteDescription =
-              window.i18next.t("site.description") ||
-              "Automate your social media DMs with AI that responds just like you.";
-
-            // Update page title
-            document.title = siteTitle;
-
-            // Update meta tags
-            document
-              .querySelector('meta[name="description"]')
-              .setAttribute("content", siteDescription);
-            document
-              .querySelector('meta[property="og:title"]')
-              .setAttribute("content", siteTitle);
-            document
-              .querySelector('meta[property="og:description"]')
-              .setAttribute("content", siteDescription);
-            document
-              .querySelector('meta[name="twitter:title"]')
-              .setAttribute("content", siteTitle);
-            document
-              .querySelector('meta[name="twitter:description"]')
-              .setAttribute("content", siteDescription);
-          } catch (error) {
-            console.error("Error updating translations:", error);
-          }
-        }
-      });
-    </script>
   </body>
 </html>
