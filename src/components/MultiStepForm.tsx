@@ -3,7 +3,7 @@
 import type React from "react";
 import { useEffect, useState } from "react";
 import confetti from "canvas-confetti";
-import { getCurrentLanguage, getTranslation } from "../utils/translations";
+import { getCurrentLanguage, getTranslation } from "@/utils/translations";
 
 import { Formik, Form, Field } from "formik";
 import {
@@ -143,16 +143,17 @@ export default function MultiStepForm() {
   const [currentStep, setCurrentStep] = useState(0);
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [isSubmitted, setIsSubmitted] = useState(false);
-  const [language, setLanguage] = useState<'en' | 'es'>('es');
+  const [language, setLanguage] = useState<"en" | "es">("es");
 
-  // Helper function to replace useTranslation
-  const t = (key: string) => getTranslation(key, language);
+  // Helper function to replace useTranslation with formatting support
+  const t = (key: string, params?: Record<string, string | number>) =>
+    getTranslation(key, language, params);
 
   const [savedInstagram, setSavedInstagram] = useState("");
   useEffect(() => {
     // Get language from URL
     setLanguage(getCurrentLanguage());
-    
+
     const handle = window.sessionStorage.getItem("instagram_handle") || "";
     setSavedInstagram(handle);
   }, []);
@@ -214,9 +215,7 @@ export default function MultiStepForm() {
             <h2 className="text-2xl font-bold text-gray-900 mb-4">
               {t("request.thankYou")}
             </h2>
-            <p className="text-gray-600 mb-6">
-              {t("request.successMessage")}
-            </p>
+            <p className="text-gray-600 mb-6">{t("request.successMessage")}</p>
             <div className="text-sm  font-medium">
               {t("request.followUs")}{" "}
               <a
@@ -254,7 +253,10 @@ export default function MultiStepForm() {
               <div className="bg-gray-50 px-8 py-6">
                 <div className="flex justify-between items-center mb-4">
                   <span className="text-sm font-medium text-gray-600">
-                    Paso {currentStep + 1} de {steps.length}
+                    {t("request.stepCounter", {
+                      current: currentStep + 1,
+                      total: steps.length,
+                    })}
                   </span>
                   <span className="text-sm font-medium text-black">
                     {Math.round(((currentStep + 1) / steps.length) * 100)}%
@@ -518,8 +520,7 @@ export default function MultiStepForm() {
 
                       <div>
                         <label className="block text-lg font-medium text-gray-700 mb-4">
-                          {t("request.missedOpportunitiesLabel")}
-                          *
+                          {t("request.missedOpportunitiesLabel")}*
                         </label>
                         <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
                           {/* Rarely */}
@@ -571,7 +572,7 @@ export default function MultiStepForm() {
                           <OptionCard
                             icon={<CircleDollarSign className="w-6 h-6" />}
                             title="$8–20"
-                            subtitle={t("request.lowPriceRange")}
+                            // subtitle={t("request.lowPriceRange")}
                             value="8-20"
                             selectedValue={values.paymentWillingness}
                             onClick={(value) =>
@@ -581,7 +582,7 @@ export default function MultiStepForm() {
                           <OptionCard
                             icon={<Handshake className="w-6 h-6" />}
                             title="$30–100"
-                            subtitle={t("request.midPriceRange")}
+                            // subtitle={t("request.midPriceRange")}
                             value="30-100"
                             selectedValue={values.paymentWillingness}
                             onClick={(value) =>
@@ -591,7 +592,7 @@ export default function MultiStepForm() {
                           <OptionCard
                             icon={<PiggyBank className="w-6 h-6" />}
                             title="$100+"
-                            subtitle={t("request.highPriceRange")}
+                            // subtitle={t("request.highPriceRange")}
                             value="100+"
                             selectedValue={values.paymentWillingness}
                             onClick={(value) =>

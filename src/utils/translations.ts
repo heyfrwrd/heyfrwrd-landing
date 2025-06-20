@@ -9,6 +9,7 @@ type TranslationType = {
 // Translations
 export const translations: TranslationType = {
   en: {
+    "request.stepCounter": "Step {{current}} of {{total}}",
     "input.requestAccess": "Request early access!",
     "input.submit": "Request",
     "input.placeholder": "@your_instagram",
@@ -77,6 +78,7 @@ export const translations: TranslationType = {
     "request.highPriceRange": "approx. $100+ USD",
   },
   es: {
+    "request.stepCounter": "Paso {{current}} de {{total}}",
     "input.requestAccess": "¡Solicita acceso anticipado!",
     "input.submit": "Solicitar",
     "input.placeholder": "@tuusuario",
@@ -147,9 +149,22 @@ export const translations: TranslationType = {
   },
 };
 
-// Translation function
-export function getTranslation(key: string, language: "en" | "es"): string {
-  return translations[language][key] || key;
+// Translation function with formatting support
+export function getTranslation(
+  key: string, 
+  language: "en" | "es", 
+  params?: Record<string, string | number>
+): string {
+  let text = translations[language][key] || key;
+  
+  // Replace parameters if provided
+  if (params) {
+    Object.entries(params).forEach(([paramKey, paramValue]) => {
+      text = text.replace(new RegExp(`{{${paramKey}}}`, 'g'), String(paramValue));
+    });
+  }
+  
+  return text;
 }
 
 // Get current language from URL or browser preferences
