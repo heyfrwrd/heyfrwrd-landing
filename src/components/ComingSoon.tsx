@@ -46,7 +46,7 @@ export default function ComingSoon({
         </div>
       ))} */}
 
-      <div className="flex flex-col items-center justify-center px-10 text-center w-full md:max-w-6xl mx-auto py-16">
+      <div className="flex flex-col items-center justify-center px-2 md:px-10 text-center w-full md:max-w-6xl mx-auto py-16">
         <div
           className="fade-up flex items-center gap-2 bg-transparent rounded-md p-2 border border-gray-700/20 mb-2"
           style={{ animationDelay: "0.2s" }}
@@ -65,7 +65,7 @@ export default function ComingSoon({
         </div>
 
         <div className="fade-up" style={{ animationDelay: "0.6s" }}>
-          <p className="mt-8 text-lg md:text-xl text-gray-600 mb-10 max-w-3xl leading-loose">
+          <p className="mt-8 text-lg md:text-xl text-gray-600 mb-10 max-w-3xl md:leading-loose">
             {t("home.subtext")}
           </p>
         </div>
