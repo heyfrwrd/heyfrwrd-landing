@@ -1,6 +1,6 @@
 // @ts-check
 import { defineConfig } from "astro/config";
-import tailwindcss from "@tailwindcss/vite";
+import tailwind from "@astrojs/tailwind";
 import react from "@astrojs/react";
 import vercel from "@astrojs/vercel";
 import astroI18next from "astro-i18next";
@@ -10,12 +10,8 @@ export default defineConfig({
   output: "server",
   adapter: vercel(),
   site: "https://heyfrwrd.me/",
-  integrations: [
-    react(),
-    astroI18next()
-  ],
+  integrations: [react(), tailwind(), astroI18next()],
   vite: {
-    plugins: [tailwindcss()],
     ssr: {
       noExternal: ["canvas-confetti"],
     },
