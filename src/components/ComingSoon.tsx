@@ -18,7 +18,9 @@ interface ComingSoonProps {
   language: "en" | "es";
 }
 
-export default function ComingSoon({ language: initialLanguage }: ComingSoonProps) {
+export default function ComingSoon({
+  language: initialLanguage,
+}: ComingSoonProps) {
   const [language, setLanguage] = useState<"en" | "es">(initialLanguage);
   const t = (key: string, params?: Record<string, string | number>) =>
     getTranslation(key, language, params);
@@ -27,7 +29,6 @@ export default function ComingSoon({ language: initialLanguage }: ComingSoonProp
   const match = rawHeadline.match(/<0>(.+?)<\/0>/);
   const first = match ? match[1] : "";
   const rest = match ? rawHeadline.replace(/<0>.+?<\/0>/, "") : rawHeadline;
-
 
   return (
     <div className="relative overflow-hidden min-h-[500px]">
@@ -51,7 +52,9 @@ export default function ComingSoon({ language: initialLanguage }: ComingSoonProp
           style={{ animationDelay: "0.2s" }}
         >
           <Sparkles size={14} className="text-gray-700/20" />
-          <span className="text-gray-700 font-medium">{t("home.soon")}</span>
+          <span className="text-gray-700 font-medium pr-4">
+            {t("home.soon")}
+          </span>
         </div>
 
         <div className="fade-up" style={{ animationDelay: "0.4s" }}>
