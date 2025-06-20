@@ -12,7 +12,6 @@ try {
     idleTimeoutMillis: 30000,
     max: 10,
   });
-  console.log("✅ PostgreSQL pool created");
 } catch (err) {
   console.error("❌ Failed to create PostgreSQL pool:", err);
 }
