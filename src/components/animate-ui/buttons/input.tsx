@@ -111,6 +111,7 @@ function InputButtonSubmit({
       data-slot="input-button-submit"
       layoutId={`input-button-submit-${id}`}
       transition={transition}
+      aria-label="next-button"
       className={cn(
         "z-[1] [&_svg:not([class*='size-'])]:size-4 cursor-pointer disabled:pointer-events-none    disabled:cursor-not-allowed shrink-0 [&_svg]:shrink-0outline-none focus-visible:border-black focus-visible:ring-2 focus-visible:ring-black aria-invalid:ring-destructive/20 dark:aria-invalid:ring-destructive/40 aria-invalid:border-destructive whitespace-nowrap bg-primary hover:bg-primary/90 transition-colors text-primary-foreground rounded-full text-sm flex items-center justify-center font-medium absolute inset-y-1 right-1",
         showInput ? "px-8" : "aspect-square",
