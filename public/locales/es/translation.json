@@ -81,6 +81,23 @@
       "emailInvalid": "Email inválido",
       "emailRequired": "El email es obligatorio",
       "instagramRequired": "El usuario de Instagram es obligatorio"
+    },
+    "pension": {
+      "title": "Planifica tu pensión",
+      "subtitle": "Configuremos tu cuenta de pensión personal para que puedas comenzar a invertir",
+      "step1": "Paso 1 - Ingresa tus datos básicos",
+      "currentAge": "Edad Actual",
+      "retirementAge": "Edad de Jubilación",
+      "initialContribution": "Contribución Inicial Opcional",
+      "step2": "Paso 2 - Optimiza tu inversión y el pago de tu pensión a continuación",
+      "monthlyRetirement": "Pensión Mensual",
+      "updateChanges": "Actualiza abajo para ver cambios",
+      "monthlyContribution": "Contribución Mensual",
+      "back": "Atrás",
+      "getStarted": "Comenzar",
+      "disclosure": "Aviso legal",
+      "privacyPolicy": "Política de privacidad",
+      "estimating": "Realizando las Estimaciones"
     }
   }
 }

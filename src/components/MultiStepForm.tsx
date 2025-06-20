@@ -5,7 +5,6 @@ import { useEffect, useState } from "react";
 import confetti from "canvas-confetti";
 
 import { Formik, Form, Field } from "formik";
-import * as Yup from "yup";
 import {
   ChevronLeft,
   ChevronRight,
@@ -56,48 +55,6 @@ interface FormData {
   email: string;
   instagram: string;
 }
-
-const validationSchemas = [
-  // Step 1
-  Yup.object({
-    creatorType: Yup.string().required("Selecciona tu tipo de creador"),
-    followersCount: Yup.string().required(
-      "Selecciona tu cantidad de seguidores"
-    ),
-    platform: Yup.string().required("Selecciona tu plataforma principal"),
-  }),
-  // Step 2
-  Yup.object({
-    biggestChallenge: Yup.string().required("Selecciona tu mayor desafío"),
-    timeSpentOnDMs: Yup.string().required(
-      "Selecciona cuánto tiempo dedicas a DMs"
-    ),
-  }),
-  // Step 3
-  Yup.object({
-    dailyInteractions: Yup.string().required(
-      "Selecciona tu volumen de interacciones"
-    ),
-    missedOpportunities: Yup.string().required(
-      "Selecciona frecuencia de oportunidades perdidas"
-    ),
-  }),
-  // Step 4
-  Yup.object({
-    automationInterest: Yup.string().required("Selecciona tu nivel de interés"),
-    paymentWillingness: Yup.string().required(
-      "Selecciona tu disposición de pago"
-    ),
-  }),
-  // Step 5
-  Yup.object({
-    name: Yup.string().required("El nombre es obligatorio"),
-    email: Yup.string()
-      .email("Email inválido")
-      .required("El email es obligatorio"),
-    instagram: Yup.string().required("El usuario de Instagram es obligatorio"),
-  }),
-];
 
 const initialValues: FormData = {
   creatorType: "",
@@ -277,7 +234,6 @@ export default function MultiStepForm() {
         <Formik
           key={savedInstagram}
           initialValues={initial}
-          validationSchema={validationSchemas[currentStep]}
           onSubmit={(values) => {
             if (currentStep === steps.length - 1) {
               handleSubmit(values);

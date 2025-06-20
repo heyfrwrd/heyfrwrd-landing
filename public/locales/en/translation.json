@@ -76,11 +76,28 @@
       "interactionsRequired": "Please select your interaction volume",
       "missedOpportunitiesRequired": "Please select how often you miss opportunities",
       "interestRequired": "Please select your interest level",
-      "paymentRequired": "Please select your payment preference",
+      "paymentRequired": "Please select your payment willingness",
       "nameRequired": "Name is required",
-      "emailInvalid": "Invalid email format",
+      "emailInvalid": "Invalid email",
       "emailRequired": "Email is required",
-      "instagramRequired": "Instagram handle is required"
+      "instagramRequired": "Instagram username is required"
+    },
+    "pension": {
+      "title": "Plan your pension",
+      "subtitle": "Let's set up your personal pension account so you can start investing",
+      "step1": "Step 1 - Enter your baseline inputs",
+      "currentAge": "Current Age",
+      "retirementAge": "Retirement Age",
+      "initialContribution": "Optional Initial Contribution",
+      "step2": "Step 2 - Optimize your investment in and your pension paid out below",
+      "monthlyRetirement": "Monthly Retirement",
+      "updateChanges": "Update below to see changes",
+      "monthlyContribution": "Monthly Contribution",
+      "back": "Back",
+      "getStarted": "Get started",
+      "disclosure": "Disclosure",
+      "privacyPolicy": "Privacy policy",
+      "estimating": "Making the Estimations"
     }
   }
 }
