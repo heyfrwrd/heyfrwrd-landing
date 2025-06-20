@@ -5,15 +5,26 @@ import Header from "@/components/Header.astro";
 import "@/styles/global.css";
 
 const currentLocale = Astro.currentLocale || "en";
+const SITE_URL = import.meta.env.SITE;
+const path = Astro.url.pathname;
+const canonicalUrl = new URL(path, SITE_URL).toString();
 ---
 
 <html lang={currentLocale}>
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width" />
+
+    <!-- Canonical -->
+    <link rel="canonical" href={canonicalUrl} />
+
+    <!-- Alternates -->
     <HeadHrefLangs />
+
     <title>{i18next.t("site.title")}</title>
     <meta name="description" content={i18next.t("site.description")} />
+
+    <!-- Google Fonts optimized -->
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link
