@@ -2,7 +2,7 @@
 
 import React, { useEffect, useState } from "react";
 import { Sparkles } from "lucide-react";
-import InputIsland from "./ui/InputIsland";
+import InputIsland from "./InputIsland";
 
 import { getCurrentLanguage, getTranslation } from "@/utils/translations";
 
