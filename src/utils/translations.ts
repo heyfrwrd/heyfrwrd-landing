@@ -58,8 +58,7 @@ export const translations: TranslationType = {
     "request.dailyInteractionsLabel":
       "How many daily interactions do you receive?",
     "request.missedOpportunitiesLabel": "How often do you miss opportunities?",
-    "request.paymentWillingnessLabel":
-      "How much would you pay monthly for this solution?",
+    "request.paymentWillingnessLabel": "How would you rather to pay?",
     "request.automationInterestLabel":
       "How interested are you in AI that auto-captures data?",
     "request.veryInterested": "Very interested",
@@ -85,9 +84,8 @@ export const translations: TranslationType = {
     "request.oftenFreq": "Several times/week",
     "request.constantly": "Constantly",
     "request.constantlyFreq": "Every day",
-    "request.lowPriceRange": "approx. $8-20 USD",
-    "request.midPriceRange": "approx. $30-100 USD",
-    "request.highPriceRange": "approx. $100+ USD",
+    "request.monthly": "$8-20 USD monthly",
+    "request.once": "One only payment of 120 USD",
   },
   es: {
     // site
@@ -141,8 +139,7 @@ export const translations: TranslationType = {
     "request.dailyInteractionsLabel": "¿Cuántas interacciones diarias recibes?",
     "request.missedOpportunitiesLabel":
       "¿Con qué frecuencia sientes que pierdes oportunidades?",
-    "request.paymentWillingnessLabel":
-      "¿Cuánto pagarías al mes por esta solución?",
+    "request.paymentWillingnessLabel": "¿Cómo preferirías pagar?",
     "request.automationInterestLabel":
       "¿Qué tan interesado estás en una IA que capture datos automáticamente?",
     "request.veryInterested": "Muy interesado",
@@ -168,9 +165,8 @@ export const translations: TranslationType = {
     "request.oftenFreq": "Varias veces/semana",
     "request.constantly": "Constantemente",
     "request.constantlyFreq": "Todos los días",
-    "request.lowPriceRange": "aprox. 208–521 HNL",
-    "request.midPriceRange": "aprox. 781–2,614.99 HNL",
-    "request.highPriceRange": "aprox. 2,614.99+ HNL",
+    "request.monthly": "8-10 USD mensuales",
+    "request.once": "Un pago único de 120 USD aproximados",
   },
 };
 
@@ -197,12 +193,12 @@ export function getTranslation(
 // Extract language from a given path
 export function getLanguageFromPath(path: string): "en" | "es" {
   if (!path) return "es";
-  
+
   // Check for English routes (explicit /en prefix)
   if (path.startsWith("/en/") || path === "/en") {
     return "en";
   }
-  
+
   // Spanish is the default - any other path without /en is Spanish
   return "es";
 }

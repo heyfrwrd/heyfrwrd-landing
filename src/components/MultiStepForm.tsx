@@ -567,12 +567,11 @@ export default function MultiStepForm({ language }: MultiStepFormProps) {
                         <label className="block text-lg font-medium text-gray-700 mb-4">
                           {t("request.paymentWillingnessLabel")} *
                         </label>
-                        <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+                        <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                           <OptionCard
                             icon={<CircleDollarSign className="w-6 h-6" />}
-                            title="$8–20"
-                            // subtitle={t("request.lowPriceRange")}
-                            value="8-20"
+                            title={t("request.monthly")}
+                            value="monthly"
                             selectedValue={values.paymentWillingness}
                             onClick={(value) =>
                               setFieldValue("paymentWillingness", value)
@@ -580,19 +579,8 @@ export default function MultiStepForm({ language }: MultiStepFormProps) {
                           />
                           <OptionCard
                             icon={<Handshake className="w-6 h-6" />}
-                            title="$30–100"
-                            // subtitle={t("request.midPriceRange")}
-                            value="30-100"
-                            selectedValue={values.paymentWillingness}
-                            onClick={(value) =>
-                              setFieldValue("paymentWillingness", value)
-                            }
-                          />
-                          <OptionCard
-                            icon={<PiggyBank className="w-6 h-6" />}
-                            title="$100+"
-                            // subtitle={t("request.highPriceRange")}
-                            value="100+"
+                            title={t("request.once")}
+                            value="one-payment"
                             selectedValue={values.paymentWillingness}
                             onClick={(value) =>
                               setFieldValue("paymentWillingness", value)
