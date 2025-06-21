@@ -32,6 +32,7 @@ import {
   Handshake,
   CircleDollarSign,
 } from "lucide-react";
+import { validationSchemas } from "@/lib/survey-validation-schema";
 
 interface FormData {
   // Step 1: Creator Profile
@@ -245,6 +246,8 @@ export default function MultiStepForm({ language }: MultiStepFormProps) {
       <div className="max-w-2xl w-full">
         <Formik
           key={savedInstagram}
+          validationSchema={validationSchemas[currentStep]}
+          validateOnMount
           initialValues={initial}
           onSubmit={(values) => {
             if (currentStep === steps.length - 1) {
@@ -254,448 +257,466 @@ export default function MultiStepForm({ language }: MultiStepFormProps) {
             }
           }}
         >
-          {({ values, setFieldValue, isValid }) => (
-            <Form className="bg-white rounded-3xl border-black border-2 shadow-xl overflow-hidden">
-              {/* Progress Bar */}
-              <div className="bg-gray-50 px-8 py-6">
-                <div className="flex justify-between items-center mb-4">
-                  <span className="text-sm font-medium text-gray-600">
-                    {t("request.stepCounter", {
-                      current: currentStep + 1,
-                      total: steps.length,
-                    })}
-                  </span>
-                  <span className="text-sm font-medium text-black">
-                    {Math.round(((currentStep + 1) / steps.length) * 100)}%
-                  </span>
+          {({ values, setFieldValue }) => {
+            const requiredPerStep: Record<number, string[]> = {
+              0: ["creatorType", "followersCount", "platform"],
+              1: ["biggestChallenge", "timeSpentOnDMs"],
+              2: ["dailyInteractions", "missedOpportunities"],
+              3: ["automationInterest", "paymentWillingness"],
+              4: ["name", "email", "instagram"],
+            };
+
+            // comprueba que **todos** esos campos tengan valor
+            const canProceed = requiredPerStep[currentStep].every((field) =>
+              Boolean((values as any)[field])
+            );
+
+            return (
+              <Form className="bg-white rounded-3xl border-black border-2 shadow-xl overflow-hidden">
+                {/* Progress Bar */}
+                <div className="bg-gray-50 px-8 py-6">
+                  <div className="flex justify-between items-center mb-4">
+                    <span className="text-sm font-medium text-gray-600">
+                      {t("request.stepCounter", {
+                        current: currentStep + 1,
+                        total: steps.length,
+                      })}
+                    </span>
+                    <span className="text-sm font-medium text-black">
+                      {Math.round(((currentStep + 1) / steps.length) * 100)}%
+                    </span>
+                  </div>
+                  <div className="w-full bg-gray-200 rounded-full h-2">
+                    <div
+                      className="bg-black h-2 rounded-full transition-all duration-300"
+                      style={{
+                        width: `${((currentStep + 1) / steps.length) * 100}%`,
+                      }}
+                    />
+                  </div>
                 </div>
-                <div className="w-full bg-gray-200 rounded-full h-2">
-                  <div
-                    className="bg-black h-2 rounded-full transition-all duration-300"
-                    style={{
-                      width: `${((currentStep + 1) / steps.length) * 100}%`,
-                    }}
-                  />
+
+                {/* Form Content */}
+                <div className="px-8 py-8">
+                  <div className="text-center mb-8">
+                    <h2 className="text-3xl font-bold text-gray-900 mb-2">
+                      {steps[currentStep].title}
+                    </h2>
+                    <p className="text-gray-600">
+                      {steps[currentStep].subtitle}
+                    </p>
+                  </div>
+
+                  <div className="space-y-6">
+                    {/* Step 1: Creator Profile */}
+                    {currentStep === 0 && (
+                      <div className="space-y-8">
+                        <div>
+                          <label className="block text-lg font-medium text-gray-700 mb-4">
+                            {t("request.creatorTypeLabel")} *
+                          </label>
+                          <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+                            {/* Influencer Option */}
+                            <OptionCard
+                              icon={<Users className="w-6 h-6" />}
+                              title={t("request.influencer")}
+                              subtitle={t("request.influencerSub")}
+                              value="influencer"
+                              selectedValue={values.creatorType}
+                              onClick={(value) =>
+                                setFieldValue("creatorType", value)
+                              }
+                            />
+                            {/* Coach/Mentor Option */}
+                            <OptionCard
+                              icon={<Target className="w-6 h-6" />}
+                              title={t("request.coach")}
+                              subtitle={t("request.coachSub")}
+                              value="coach"
+                              selectedValue={values.creatorType}
+                              onClick={(value) =>
+                                setFieldValue("creatorType", value)
+                              }
+                            />
+                            {/* Entrepreneur Option */}
+                            <OptionCard
+                              icon={<TrendingUp className="w-6 h-6" />}
+                              title={t("request.entrepreneur")}
+                              subtitle={t("request.entrepreneurSub")}
+                              value="entrepreneur"
+                              selectedValue={values.creatorType}
+                              onClick={(value) =>
+                                setFieldValue("creatorType", value)
+                              }
+                            />
+                          </div>
+                        </div>
+
+                        <div>
+                          <label className="block text-lg font-medium text-gray-700 mb-4">
+                            {t("request.followersCountLabel")} *
+                          </label>
+                          <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+                            {/* 1K–10K */}
+                            <OptionCard
+                              icon={<span>1K–10K</span>}
+                              title="1K–10K"
+                              value="1k-10k"
+                              selectedValue={values.followersCount}
+                              onClick={(value) =>
+                                setFieldValue("followersCount", value)
+                              }
+                            />
+                            {/* 10K–100K */}
+                            <OptionCard
+                              icon={<span>10K–100K</span>}
+                              title="10K–100K"
+                              value="10k-100k"
+                              selectedValue={values.followersCount}
+                              onClick={(value) =>
+                                setFieldValue("followersCount", value)
+                              }
+                            />
+                            {/* 100K+ */}
+                            <OptionCard
+                              icon={<Users className="w-6 h-6" />}
+                              title="100K+"
+                              value="100k+"
+                              selectedValue={values.followersCount}
+                              onClick={(value) =>
+                                setFieldValue("followersCount", value)
+                              }
+                            />
+                          </div>
+                        </div>
+
+                        <div>
+                          <label className="block text-lg font-medium text-gray-700 mb-4">
+                            {t("request.platformLabel")} *
+                          </label>
+                          <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+                            {/* Instagram */}
+                            <OptionCard
+                              icon={<Instagram className="w-6 h-6" />}
+                              title="Instagram"
+                              value="instagram"
+                              selectedValue={values.platform}
+                              onClick={(value) =>
+                                setFieldValue("platform", value)
+                              }
+                            />
+                            {/* TikTok */}
+                            <OptionCard
+                              icon={<Music2 className="w-6 h-6" />}
+                              title="TikTok"
+                              value="tiktok"
+                              selectedValue={values.platform}
+                              onClick={(value) =>
+                                setFieldValue("platform", value)
+                              }
+                            />
+                            {/* Facebook */}
+                            <OptionCard
+                              icon={<Facebook className="w-6 h-6" />}
+                              title="Facebook"
+                              value="facebook"
+                              selectedValue={values.platform}
+                              onClick={(value) =>
+                                setFieldValue("platform", value)
+                              }
+                            />
+                          </div>
+                        </div>
+                      </div>
+                    )}
+
+                    {/* Step 2: Current Challenges */}
+                    {currentStep === 1 && (
+                      <div className="space-y-8">
+                        <div>
+                          <label className="block text-lg font-medium text-gray-700 mb-4">
+                            {t("request.challengeLabel")} *
+                          </label>
+                          <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                            {/* Time challenge */}
+                            <OptionCard
+                              icon={<Clock className="w-6 h-6" />}
+                              title={t("request.timeChallenge")}
+                              subtitle={t("request.timeChallengeSub")}
+                              value="time"
+                              selectedValue={values.biggestChallenge}
+                              onClick={(value) =>
+                                setFieldValue("biggestChallenge", value)
+                              }
+                            />
+                            {/* Repetitive info challenge */}
+                            <OptionCard
+                              icon={<MessageCircle className="w-6 h-6" />}
+                              title={t("request.repetitiveInfo")}
+                              subtitle={t("request.repetitiveInfoSub")}
+                              value="repetitive"
+                              selectedValue={values.biggestChallenge}
+                              onClick={(value) =>
+                                setFieldValue("biggestChallenge", value)
+                              }
+                            />
+                          </div>
+                        </div>
+
+                        <div>
+                          <label className="block text-lg font-medium text-gray-700 mb-4">
+                            {t("request.timeDMsLabel")} *
+                          </label>
+                          <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+                            {/* 30min–1h */}
+                            <OptionCard
+                              icon={<Clock2 className="w-6 h-6" />}
+                              title="30 min–1 h"
+                              value="30min-1h"
+                              selectedValue={values.timeSpentOnDMs}
+                              onClick={(value) =>
+                                setFieldValue("timeSpentOnDMs", value)
+                              }
+                            />
+                            {/* 1h–3h */}
+                            <OptionCard
+                              icon={<Clock4 className="w-6 h-6" />}
+                              title="1 h–3 h"
+                              value="1h-3h"
+                              selectedValue={values.timeSpentOnDMs}
+                              onClick={(value) =>
+                                setFieldValue("timeSpentOnDMs", value)
+                              }
+                            />
+                            {/* 3h+ */}
+                            <OptionCard
+                              icon={<Clock8 className="w-6 h-6" />}
+                              title="3 h+"
+                              value="3h+"
+                              selectedValue={values.timeSpentOnDMs}
+                              onClick={(value) =>
+                                setFieldValue("timeSpentOnDMs", value)
+                              }
+                            />
+                          </div>
+                        </div>
+                      </div>
+                    )}
+
+                    {/* Step 3: Engagement Volume */}
+                    {currentStep === 2 && (
+                      <div className="space-y-8">
+                        <div>
+                          <label className="block text-lg font-medium text-gray-700 mb-4">
+                            {t("request.dailyInteractionsLabel")} *
+                          </label>
+                          <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+                            {/* 10–50 */}
+                            <OptionCard
+                              icon={<MessageCircle className="w-6 h-6" />}
+                              title="10–50"
+                              value="10-50"
+                              selectedValue={values.dailyInteractions}
+                              onClick={(value) =>
+                                setFieldValue("dailyInteractions", value)
+                              }
+                            />
+                            {/* 50–200 */}
+                            <OptionCard
+                              icon={<MessageCircleHeart className="w-6 h-6" />}
+                              title="50–200"
+                              value="50-200"
+                              selectedValue={values.dailyInteractions}
+                              onClick={(value) =>
+                                setFieldValue("dailyInteractions", value)
+                              }
+                            />
+                            {/* 200+ */}
+                            <OptionCard
+                              icon={
+                                <MessageCircleWarning className="w-6 h-6" />
+                              }
+                              title="200+"
+                              value="200+"
+                              selectedValue={values.dailyInteractions}
+                              onClick={(value) =>
+                                setFieldValue("dailyInteractions", value)
+                              }
+                            />
+                          </div>
+                        </div>
+
+                        <div>
+                          <label className="block text-lg font-medium text-gray-700 mb-4">
+                            {t("request.missedOpportunitiesLabel")}*
+                          </label>
+                          <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+                            {/* Rarely */}
+                            <OptionCard
+                              icon={<TrendingDown className="w-6 h-6" />}
+                              title={t("request.rarely")}
+                              subtitle={t("request.rarelyFreq")}
+                              value="rarely"
+                              selectedValue={values.missedOpportunities}
+                              onClick={(value) =>
+                                setFieldValue("missedOpportunities", value)
+                              }
+                            />
+                            {/* Often */}
+                            <OptionCard
+                              icon={<TrendingUpDown className="w-6 h-6" />}
+                              title={t("request.often")}
+                              subtitle={t("request.oftenFreq")}
+                              value="often"
+                              selectedValue={values.missedOpportunities}
+                              onClick={(value) =>
+                                setFieldValue("missedOpportunities", value)
+                              }
+                            />
+                            {/* Constantly */}
+                            <OptionCard
+                              icon={<TrendingUp className="w-6 h-6" />}
+                              title={t("request.constantly")}
+                              subtitle={t("request.constantlyFreq")}
+                              value="constantly"
+                              selectedValue={values.missedOpportunities}
+                              onClick={(value) =>
+                                setFieldValue("missedOpportunities", value)
+                              }
+                            />
+                          </div>
+                        </div>
+                      </div>
+                    )}
+
+                    {/* Step 4: Solution Interest */}
+                    {currentStep === 3 && (
+                      <div className="space-y-8">
+                        <div>
+                          <label className="block text-lg font-medium text-gray-700 mb-4">
+                            {t("request.paymentWillingnessLabel")} *
+                          </label>
+                          <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                            <OptionCard
+                              icon={<CircleDollarSign className="w-6 h-6" />}
+                              title={t("request.monthly")}
+                              value="monthly"
+                              selectedValue={values.paymentWillingness}
+                              onClick={(value) =>
+                                setFieldValue("paymentWillingness", value)
+                              }
+                            />
+                            <OptionCard
+                              icon={<Handshake className="w-6 h-6" />}
+                              title={t("request.once")}
+                              value="one-payment"
+                              selectedValue={values.paymentWillingness}
+                              onClick={(value) =>
+                                setFieldValue("paymentWillingness", value)
+                              }
+                            />
+                          </div>
+                        </div>
+
+                        <div>
+                          <label className="block text-lg font-medium text-gray-700 mb-4">
+                            {t("request.automationInterestLabel")} *
+                          </label>
+                          <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+                            <OptionCard
+                              icon={<BicepsFlexed className="w-6 h-6" />}
+                              title={t("request.veryInterested")}
+                              subtitle={t("request.veryInterestedSub")}
+                              value="very-interested"
+                              selectedValue={values.automationInterest}
+                              onClick={(value) =>
+                                setFieldValue("automationInterest", value)
+                              }
+                            />
+                            <OptionCard
+                              icon={<HeartHandshake className="w-6 h-6" />}
+                              title={t("request.interested")}
+                              subtitle={t("request.interestedSub")}
+                              value="interested"
+                              selectedValue={values.automationInterest}
+                              onClick={(value) =>
+                                setFieldValue("automationInterest", value)
+                              }
+                            />
+                            <OptionCard
+                              icon={<HeartCrack className="w-6 h-6" />}
+                              title={t("request.notInterested")}
+                              subtitle={t("request.notInterestedSub")}
+                              value="not-interested"
+                              selectedValue={values.automationInterest}
+                              onClick={(value) =>
+                                setFieldValue("automationInterest", value)
+                              }
+                            />
+                          </div>
+                        </div>
+                      </div>
+                    )}
+
+                    {/* Step 5: Contact Info */}
+                    {currentStep === 4 && (
+                      <div className="space-y-6">
+                        <div>
+                          <label
+                            htmlFor="name"
+                            className="block text-sm font-medium text-gray-700 mb-2"
+                          >
+                            {t("request.nameLabel")} *
+                          </label>
+                          <Field
+                            type="text"
+                            name="name"
+                            className="w-full px-4 py-3 border-2 border-gray-200 rounded-md focus:ring-0 focus:border-black placeholder:text-gray-300 focus-visible:outline-0"
+                            placeholder={t("request.namePlaceholder")}
+                          />
+                        </div>
+
+                        <div>
+                          <label
+                            htmlFor="email"
+                            className="block text-sm font-medium text-gray-700 mb-2"
+                          >
+                            {t("request.emailLabel")} *
+                          </label>
+                          <Field
+                            type="email"
+                            name="email"
+                            className="w-full px-4 py-3 border-2 border-gray-200 rounded-md focus:ring-0 focus:border-black placeholder:text-gray-300 focus-visible:outline-0"
+                            placeholder={t("request.emailPlaceholder")}
+                          />
+                        </div>
+
+                        <div>
+                          <label
+                            htmlFor="instagram"
+                            className="block text-sm font-medium text-gray-700 mb-2"
+                          >
+                            {t("request.instagramLabel")} *
+                          </label>
+                          <Field
+                            type="text"
+                            name="instagram"
+                            className="w-full px-4 py-3 border-2 border-gray-200 rounded-md focus:ring-0 focus:border-black placeholder:text-gray-300 focus-visible:outline-0"
+                            placeholder={t("request.instagramPlaceholder")}
+                          />
+                        </div>
+                      </div>
+                    )}
+                  </div>
                 </div>
-              </div>
 
-              {/* Form Content */}
-              <div className="px-8 py-8">
-                <div className="text-center mb-8">
-                  <h2 className="text-3xl font-bold text-gray-900 mb-2">
-                    {steps[currentStep].title}
-                  </h2>
-                  <p className="text-gray-600">{steps[currentStep].subtitle}</p>
-                </div>
-
-                <div className="space-y-6">
-                  {/* Step 1: Creator Profile */}
-                  {currentStep === 0 && (
-                    <div className="space-y-8">
-                      <div>
-                        <label className="block text-lg font-medium text-gray-700 mb-4">
-                          {t("request.creatorTypeLabel")} *
-                        </label>
-                        <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
-                          {/* Influencer Option */}
-                          <OptionCard
-                            icon={<Users className="w-6 h-6" />}
-                            title={t("request.influencer")}
-                            subtitle={t("request.influencerSub")}
-                            value="influencer"
-                            selectedValue={values.creatorType}
-                            onClick={(value) =>
-                              setFieldValue("creatorType", value)
-                            }
-                          />
-                          {/* Coach/Mentor Option */}
-                          <OptionCard
-                            icon={<Target className="w-6 h-6" />}
-                            title={t("request.coach")}
-                            subtitle={t("request.coachSub")}
-                            value="coach"
-                            selectedValue={values.creatorType}
-                            onClick={(value) =>
-                              setFieldValue("creatorType", value)
-                            }
-                          />
-                          {/* Entrepreneur Option */}
-                          <OptionCard
-                            icon={<TrendingUp className="w-6 h-6" />}
-                            title={t("request.entrepreneur")}
-                            subtitle={t("request.entrepreneurSub")}
-                            value="entrepreneur"
-                            selectedValue={values.creatorType}
-                            onClick={(value) =>
-                              setFieldValue("creatorType", value)
-                            }
-                          />
-                        </div>
-                      </div>
-
-                      <div>
-                        <label className="block text-lg font-medium text-gray-700 mb-4">
-                          {t("request.followersCountLabel")} *
-                        </label>
-                        <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
-                          {/* 1K–10K */}
-                          <OptionCard
-                            icon={<span>1K–10K</span>}
-                            title="1K–10K"
-                            value="1k-10k"
-                            selectedValue={values.followersCount}
-                            onClick={(value) =>
-                              setFieldValue("followersCount", value)
-                            }
-                          />
-                          {/* 10K–100K */}
-                          <OptionCard
-                            icon={<span>10K–100K</span>}
-                            title="10K–100K"
-                            value="10k-100k"
-                            selectedValue={values.followersCount}
-                            onClick={(value) =>
-                              setFieldValue("followersCount", value)
-                            }
-                          />
-                          {/* 100K+ */}
-                          <OptionCard
-                            icon={<Users className="w-6 h-6" />}
-                            title="100K+"
-                            value="100k+"
-                            selectedValue={values.followersCount}
-                            onClick={(value) =>
-                              setFieldValue("followersCount", value)
-                            }
-                          />
-                        </div>
-                      </div>
-
-                      <div>
-                        <label className="block text-lg font-medium text-gray-700 mb-4">
-                          {t("request.platformLabel")} *
-                        </label>
-                        <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
-                          {/* Instagram */}
-                          <OptionCard
-                            icon={<Instagram className="w-6 h-6" />}
-                            title="Instagram"
-                            value="instagram"
-                            selectedValue={values.platform}
-                            onClick={(value) =>
-                              setFieldValue("platform", value)
-                            }
-                          />
-                          {/* TikTok */}
-                          <OptionCard
-                            icon={<Music2 className="w-6 h-6" />}
-                            title="TikTok"
-                            value="tiktok"
-                            selectedValue={values.platform}
-                            onClick={(value) =>
-                              setFieldValue("platform", value)
-                            }
-                          />
-                          {/* Facebook */}
-                          <OptionCard
-                            icon={<Facebook className="w-6 h-6" />}
-                            title="Facebook"
-                            value="facebook"
-                            selectedValue={values.platform}
-                            onClick={(value) =>
-                              setFieldValue("platform", value)
-                            }
-                          />
-                        </div>
-                      </div>
-                    </div>
-                  )}
-
-                  {/* Step 2: Current Challenges */}
-                  {currentStep === 1 && (
-                    <div className="space-y-8">
-                      <div>
-                        <label className="block text-lg font-medium text-gray-700 mb-4">
-                          {t("request.challengeLabel")} *
-                        </label>
-                        <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                          {/* Time challenge */}
-                          <OptionCard
-                            icon={<Clock className="w-6 h-6" />}
-                            title={t("request.timeChallenge")}
-                            subtitle={t("request.timeChallengeSub")}
-                            value="time"
-                            selectedValue={values.biggestChallenge}
-                            onClick={(value) =>
-                              setFieldValue("biggestChallenge", value)
-                            }
-                          />
-                          {/* Repetitive info challenge */}
-                          <OptionCard
-                            icon={<MessageCircle className="w-6 h-6" />}
-                            title={t("request.repetitiveInfo")}
-                            subtitle={t("request.repetitiveInfoSub")}
-                            value="repetitive"
-                            selectedValue={values.biggestChallenge}
-                            onClick={(value) =>
-                              setFieldValue("biggestChallenge", value)
-                            }
-                          />
-                        </div>
-                      </div>
-
-                      <div>
-                        <label className="block text-lg font-medium text-gray-700 mb-4">
-                          {t("request.timeDMsLabel")} *
-                        </label>
-                        <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
-                          {/* 30min–1h */}
-                          <OptionCard
-                            icon={<Clock2 className="w-6 h-6" />}
-                            title="30 min–1 h"
-                            value="30min-1h"
-                            selectedValue={values.timeSpentOnDMs}
-                            onClick={(value) =>
-                              setFieldValue("timeSpentOnDMs", value)
-                            }
-                          />
-                          {/* 1h–3h */}
-                          <OptionCard
-                            icon={<Clock4 className="w-6 h-6" />}
-                            title="1 h–3 h"
-                            value="1h-3h"
-                            selectedValue={values.timeSpentOnDMs}
-                            onClick={(value) =>
-                              setFieldValue("timeSpentOnDMs", value)
-                            }
-                          />
-                          {/* 3h+ */}
-                          <OptionCard
-                            icon={<Clock8 className="w-6 h-6" />}
-                            title="3 h+"
-                            value="3h+"
-                            selectedValue={values.timeSpentOnDMs}
-                            onClick={(value) =>
-                              setFieldValue("timeSpentOnDMs", value)
-                            }
-                          />
-                        </div>
-                      </div>
-                    </div>
-                  )}
-
-                  {/* Step 3: Engagement Volume */}
-                  {currentStep === 2 && (
-                    <div className="space-y-8">
-                      <div>
-                        <label className="block text-lg font-medium text-gray-700 mb-4">
-                          {t("request.dailyInteractionsLabel")} *
-                        </label>
-                        <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
-                          {/* 10–50 */}
-                          <OptionCard
-                            icon={<MessageCircle className="w-6 h-6" />}
-                            title="10–50"
-                            value="10-50"
-                            selectedValue={values.dailyInteractions}
-                            onClick={(value) =>
-                              setFieldValue("dailyInteractions", value)
-                            }
-                          />
-                          {/* 50–200 */}
-                          <OptionCard
-                            icon={<MessageCircleHeart className="w-6 h-6" />}
-                            title="50–200"
-                            value="50-200"
-                            selectedValue={values.dailyInteractions}
-                            onClick={(value) =>
-                              setFieldValue("dailyInteractions", value)
-                            }
-                          />
-                          {/* 200+ */}
-                          <OptionCard
-                            icon={<MessageCircleWarning className="w-6 h-6" />}
-                            title="200+"
-                            value="200+"
-                            selectedValue={values.dailyInteractions}
-                            onClick={(value) =>
-                              setFieldValue("dailyInteractions", value)
-                            }
-                          />
-                        </div>
-                      </div>
-
-                      <div>
-                        <label className="block text-lg font-medium text-gray-700 mb-4">
-                          {t("request.missedOpportunitiesLabel")}*
-                        </label>
-                        <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
-                          {/* Rarely */}
-                          <OptionCard
-                            icon={<TrendingDown className="w-6 h-6" />}
-                            title={t("request.rarely")}
-                            subtitle={t("request.rarelyFreq")}
-                            value="rarely"
-                            selectedValue={values.missedOpportunities}
-                            onClick={(value) =>
-                              setFieldValue("missedOpportunities", value)
-                            }
-                          />
-                          {/* Often */}
-                          <OptionCard
-                            icon={<TrendingUpDown className="w-6 h-6" />}
-                            title={t("request.often")}
-                            subtitle={t("request.oftenFreq")}
-                            value="often"
-                            selectedValue={values.missedOpportunities}
-                            onClick={(value) =>
-                              setFieldValue("missedOpportunities", value)
-                            }
-                          />
-                          {/* Constantly */}
-                          <OptionCard
-                            icon={<TrendingUp className="w-6 h-6" />}
-                            title={t("request.constantly")}
-                            subtitle={t("request.constantlyFreq")}
-                            value="constantly"
-                            selectedValue={values.missedOpportunities}
-                            onClick={(value) =>
-                              setFieldValue("missedOpportunities", value)
-                            }
-                          />
-                        </div>
-                      </div>
-                    </div>
-                  )}
-
-                  {/* Step 4: Solution Interest */}
-                  {currentStep === 3 && (
-                    <div className="space-y-8">
-                      <div>
-                        <label className="block text-lg font-medium text-gray-700 mb-4">
-                          {t("request.paymentWillingnessLabel")} *
-                        </label>
-                        <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                          <OptionCard
-                            icon={<CircleDollarSign className="w-6 h-6" />}
-                            title={t("request.monthly")}
-                            value="monthly"
-                            selectedValue={values.paymentWillingness}
-                            onClick={(value) =>
-                              setFieldValue("paymentWillingness", value)
-                            }
-                          />
-                          <OptionCard
-                            icon={<Handshake className="w-6 h-6" />}
-                            title={t("request.once")}
-                            value="one-payment"
-                            selectedValue={values.paymentWillingness}
-                            onClick={(value) =>
-                              setFieldValue("paymentWillingness", value)
-                            }
-                          />
-                        </div>
-                      </div>
-
-                      <div>
-                        <label className="block text-lg font-medium text-gray-700 mb-4">
-                          {t("request.automationInterestLabel")} *
-                        </label>
-                        <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
-                          <OptionCard
-                            icon={<BicepsFlexed className="w-6 h-6" />}
-                            title={t("request.veryInterested")}
-                            subtitle={t("request.veryInterestedSub")}
-                            value="very-interested"
-                            selectedValue={values.automationInterest}
-                            onClick={(value) =>
-                              setFieldValue("automationInterest", value)
-                            }
-                          />
-                          <OptionCard
-                            icon={<HeartHandshake className="w-6 h-6" />}
-                            title={t("request.interested")}
-                            subtitle={t("request.interestedSub")}
-                            value="interested"
-                            selectedValue={values.automationInterest}
-                            onClick={(value) =>
-                              setFieldValue("automationInterest", value)
-                            }
-                          />
-                          <OptionCard
-                            icon={<HeartCrack className="w-6 h-6" />}
-                            title={t("request.notInterested")}
-                            subtitle={t("request.notInterestedSub")}
-                            value="not-interested"
-                            selectedValue={values.automationInterest}
-                            onClick={(value) =>
-                              setFieldValue("automationInterest", value)
-                            }
-                          />
-                        </div>
-                      </div>
-                    </div>
-                  )}
-
-                  {/* Step 5: Contact Info */}
-                  {currentStep === 4 && (
-                    <div className="space-y-6">
-                      <div>
-                        <label
-                          htmlFor="name"
-                          className="block text-sm font-medium text-gray-700 mb-2"
-                        >
-                          {t("request.nameLabel")} *
-                        </label>
-                        <Field
-                          type="text"
-                          name="name"
-                          className="w-full px-4 py-3 border-2 border-gray-200 rounded-md focus:ring-0 focus:border-black placeholder:text-gray-300 focus-visible:outline-0"
-                          placeholder={t("request.namePlaceholder")}
-                        />
-                      </div>
-
-                      <div>
-                        <label
-                          htmlFor="email"
-                          className="block text-sm font-medium text-gray-700 mb-2"
-                        >
-                          {t("request.emailLabel")} *
-                        </label>
-                        <Field
-                          type="email"
-                          name="email"
-                          className="w-full px-4 py-3 border-2 border-gray-200 rounded-md focus:ring-0 focus:border-black placeholder:text-gray-300 focus-visible:outline-0"
-                          placeholder={t("request.emailPlaceholder")}
-                        />
-                      </div>
-
-                      <div>
-                        <label
-                          htmlFor="instagram"
-                          className="block text-sm font-medium text-gray-700 mb-2"
-                        >
-                          {t("request.instagramLabel")} *
-                        </label>
-                        <Field
-                          type="text"
-                          name="instagram"
-                          className="w-full px-4 py-3 border-2 border-gray-200 rounded-md focus:ring-0 focus:border-black placeholder:text-gray-300 focus-visible:outline-0"
-                          placeholder={t("request.instagramPlaceholder")}
-                        />
-                      </div>
-                    </div>
-                  )}
-                </div>
-              </div>
-
-              {/* Navigation */}
-              <div className="bg-gray-50 px-8 py-6 flex justify-between items-center">
-                <button
-                  type="button"
-                  onClick={() => setCurrentStep(Math.max(0, currentStep - 1))}
-                  disabled={currentStep === 0}
-                  className={`
+                {/* Navigation */}
+                <div className="bg-gray-50 px-8 py-6 flex justify-between items-center">
+                  <button
+                    type="button"
+                    onClick={() => setCurrentStep((s) => Math.max(0, s - 1))}
+                    disabled={currentStep === 0}
+                    className={`
                     flex items-center space-x-2 px-6 py-3 rounded-xl font-medium transition-all
                     ${
                       currentStep === 0
@@ -703,42 +724,43 @@ export default function MultiStepForm({ language }: MultiStepFormProps) {
                         : "text-gray-700 hover:bg-gray-200"
                     }
                   `}
-                >
-                  <ChevronLeft className="w-4 h-4" />
-                  <span>{t("request.back")}</span>
-                </button>
+                  >
+                    <ChevronLeft className="w-4 h-4" />
+                    <span>{t("request.back")}</span>
+                  </button>
 
-                <button
-                  type="submit"
-                  disabled={!isValid || isSubmitting}
-                  className={`
-                    flex items-center space-x-2 px-8 py-3 rounded-xl font-medium transition-all
-                    ${
-                      isValid && !isSubmitting
-                        ? "bg-black text-white hover:bg-black/90 shadow-lg"
-                        : "bg-gray-300 text-gray-500 cursor-not-allowed"
-                    }
-                  `}
-                >
-                  {isSubmitting ? (
-                    <>
-                      <div className="w-4 h-4 border-2 border-white border-t-transparent rounded-full animate-spin" />
-                      <span>{t("request.sending")}</span>
-                    </>
-                  ) : (
-                    <>
-                      <span>
-                        {currentStep === steps.length - 1
-                          ? t("request.submit")
-                          : t("request.next")}
-                      </span>
-                      <ChevronRight className="w-4 h-4" />
-                    </>
-                  )}
-                </button>
-              </div>
-            </Form>
-          )}
+                  <button
+                    type="submit"
+                    disabled={!canProceed || isSubmitting}
+                    className={`
+            flex items-center space-x-2 px-8 py-3 rounded-xl font-medium transition-all
+            ${
+              canProceed && !isSubmitting
+                ? "bg-black text-white hover:bg-black/90 shadow-lg"
+                : "bg-gray-300 text-gray-500 cursor-not-allowed"
+            }
+          `}
+                  >
+                    {isSubmitting ? (
+                      <>
+                        <div className="w-4 h-4 border-2 border-white border-t-transparent rounded-full animate-spin" />
+                        <span>{t("request.sending")}</span>
+                      </>
+                    ) : (
+                      <>
+                        <span>
+                          {currentStep === steps.length - 1
+                            ? t("request.submit")
+                            : t("request.next")}
+                        </span>
+                        <ChevronRight className="w-4 h-4" />
+                      </>
+                    )}
+                  </button>
+                </div>
+              </Form>
+            );
+          }}
         </Formik>
       </div>
     </div>
