@@ -1,7 +1,7 @@
 "use client";
 
 import type React from "react";
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import confetti from "canvas-confetti";
 import { getTranslation } from "@/utils/translations";
 
@@ -148,6 +148,7 @@ export default function MultiStepForm({ language }: MultiStepFormProps) {
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [isSubmitted, setIsSubmitted] = useState(false);
   const [savedInstagram, setSavedInstagram] = useState("");
+  const prevStep = useRef(currentStep);
 
   // Helper function to replace useTranslation with formatting support
   const t = (key: string, params?: Record<string, string | number>) =>
@@ -157,6 +158,13 @@ export default function MultiStepForm({ language }: MultiStepFormProps) {
     const handle = window.sessionStorage.getItem("instagram_handle") || "";
     setSavedInstagram(handle);
   }, []);
+
+  useEffect(() => {
+    if (currentStep > prevStep.current) {
+      window.scrollTo({ top: 0, behavior: "smooth" });
+    }
+    prevStep.current = currentStep;
+  }, [currentStep]);
 
   const initial = { ...initialValues, instagram: savedInstagram };
 
