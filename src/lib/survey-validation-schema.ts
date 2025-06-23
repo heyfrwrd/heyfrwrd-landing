@@ -10,7 +10,7 @@ export const validationSchemas = [
   // Step 2
   Yup.object({
     biggestChallenge: Yup.string().required(),
-    timeSpentOnDMs: Yup.string().required(),
+    platformOption: Yup.string().required(),
   }),
   // Step 3
   Yup.object({
