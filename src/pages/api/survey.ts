@@ -44,7 +44,6 @@ export const POST: APIRoute = async ({ request }) => {
     followers_count,
     platform,
     biggest_challenge,
-    time_spent_on_dms,
     platform_option,
     daily_interactions,
     missed_opportunities,
@@ -55,7 +54,7 @@ export const POST: APIRoute = async ({ request }) => {
     instagram
   )
 VALUES
-  ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11, $12, $13);
+  ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11, $12);
 `,
       [
         creatorType,

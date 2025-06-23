@@ -479,7 +479,7 @@ export default function MultiStepForm({ language }: MultiStepFormProps) {
                             <OptionCard
                               icon={<Smartphone className="w-6 h-6" />}
                               title={t("request.mobilePlatform")}
-                              value="1h-3h"
+                              value="mobile"
                               selectedValue={values.platformOption}
                               onClick={(value) =>
                                 setFieldValue("platformOption", value)
@@ -488,7 +488,7 @@ export default function MultiStepForm({ language }: MultiStepFormProps) {
                             <OptionCard
                               icon={<MonitorSmartphone className="w-6 h-6" />}
                               title={t("request.bothPlatforms")}
-                              value="3h+"
+                              value="both"
                               selectedValue={values.platformOption}
                               onClick={(value) =>
                                 setFieldValue("platformOption", value)
