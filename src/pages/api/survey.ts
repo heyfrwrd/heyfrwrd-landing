@@ -26,7 +26,7 @@ export const POST: APIRoute = async ({ request }) => {
     followersCount,
     platform,
     biggestChallenge,
-    timeSpentOnDMs,
+    platformOption,
     dailyInteractions,
     missedOpportunities,
     automationInterest,
@@ -39,19 +39,30 @@ export const POST: APIRoute = async ({ request }) => {
   try {
     await pool.query(
       `INSERT INTO leads
-        (creator_type, followers_count, platform,
-         biggest_challenge, time_spent_on_dms,
-         daily_interactions, missed_opportunities,
-         automation_interest, payment_willingness,
-         name, email, instagram)
-       VALUES
-        ($1,$2,$3,$4,$5,$6,$7,$8,$9,$10,$11,$12)`,
+  (
+    creator_type,
+    followers_count,
+    platform,
+    biggest_challenge,
+    time_spent_on_dms,
+    platform_option,
+    daily_interactions,
+    missed_opportunities,
+    automation_interest,
+    payment_willingness,
+    name,
+    email,
+    instagram
+  )
+VALUES
+  ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11, $12, $13);
+`,
       [
         creatorType,
         followersCount,
         platform,
         biggestChallenge,
-        timeSpentOnDMs,
+        platformOption,
         dailyInteractions,
         missedOpportunities,
         automationInterest,
