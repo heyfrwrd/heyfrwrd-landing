@@ -241,7 +241,7 @@ export default function MultiStepForm({ language }: MultiStepFormProps) {
 
   // Main multi-step form UI
   return (
-    <div className="min-h-[calc(100vh-64px)] pt-[64px] bg-gradient-to-br from-gray-50 to-white flex items-center justify-center p-4">
+    <div className="min-h-[calc(100vh-50px)] pt-[50px] bg-gradient-to-br from-gray-50 to-white flex items-center justify-center p-4">
       <div className="max-w-2xl w-full">
         <Formik
           key={savedInstagram}
@@ -273,7 +273,7 @@ export default function MultiStepForm({ language }: MultiStepFormProps) {
             return (
               <Form className="bg-white rounded-3xl border-black border-2 shadow-xl overflow-hidden">
                 {/* Progress Bar */}
-                <div className="bg-gray-50 px-8 py-6">
+                <div className="bg-gray-50 px-8 pt-4 pb-2">
                   <div className="flex justify-between items-center mb-4">
                     <span className="text-sm font-medium text-gray-600">
                       {t("request.stepCounter", {
@@ -296,8 +296,8 @@ export default function MultiStepForm({ language }: MultiStepFormProps) {
                 </div>
 
                 {/* Form Content */}
-                <div className="px-8 py-8">
-                  <div className="text-center mb-8">
+                <div className="px-8 py-4">
+                  <div className="text-center mb-4">
                     <h2 className="text-3xl font-bold text-gray-900 mb-2">
                       {steps[currentStep].title}
                     </h2>
