@@ -54,7 +54,11 @@ export const translations: TranslationType = {
     "request.timeChallengeSub": "I can't reply to everything",
     "request.repetitiveInfo": "Repetitive info",
     "request.repetitiveInfoSub": "Always the same questions",
-    "request.timeDMsLabel": "How much time do you spend on DMs daily?",
+    "request.platformOption":
+      "Which platform would you prefer it to be available on?",
+    "request.webPlatform": "Web only",
+    "request.mobilePlatform": "Mobile only",
+    "request.bothPlatforms": "Web and mobile",
     "request.dailyInteractionsLabel":
       "How many daily interactions do you receive?",
     "request.missedOpportunitiesLabel": "How often do you miss opportunities?",
@@ -135,7 +139,11 @@ export const translations: TranslationType = {
     "request.timeChallengeSub": "No alcanzo a responder todo",
     "request.repetitiveInfo": "Información repetitiva",
     "request.repetitiveInfoSub": "Siempre las mismas preguntas",
-    "request.timeDMsLabel": "¿Cuánto tiempo dedicas a DMs diario?",
+    "request.platformOption":
+      "¿En qué plataforma preferirías que estuviera disponible?",
+    "request.webPlatform": "Solo web",
+    "request.mobilePlatform": "Solo móvil",
+    "request.bothPlatforms": "Web y móvil",
     "request.dailyInteractionsLabel": "¿Cuántas interacciones diarias recibes?",
     "request.missedOpportunitiesLabel":
       "¿Con qué frecuencia sientes que pierdes oportunidades?",

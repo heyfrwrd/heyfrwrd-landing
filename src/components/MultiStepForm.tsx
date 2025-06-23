@@ -31,6 +31,9 @@ import {
   PiggyBank,
   Handshake,
   CircleDollarSign,
+  Earth,
+  Smartphone,
+  MonitorSmartphone,
 } from "lucide-react";
 import { validationSchemas } from "@/lib/survey-validation-schema";
 
@@ -42,7 +45,7 @@ interface FormData {
 
   // Step 2: Current Challenges
   biggestChallenge: string;
-  timeSpentOnDMs: string;
+  platformOption: string;
 
   // Step 3: Engagement Volume
   dailyInteractions: string;
@@ -63,7 +66,7 @@ const initialValues: FormData = {
   followersCount: "",
   platform: "",
   biggestChallenge: "",
-  timeSpentOnDMs: "",
+  platformOption: "",
   dailyInteractions: "",
   missedOpportunities: "",
   automationInterest: "",
@@ -96,7 +99,7 @@ const OptionCard: React.FC<OptionCardProps> = ({
     <div
       onClick={() => onClick(value)}
       className={`
-        relative cursor-pointer rounded-2xl border-2 p-6 transition-all duration-200 hover:shadow-lg
+        relative cursor-pointer rounded-2xl border-2 p-4 transition-all duration-200 hover:shadow-lg
         ${
           isSelected
             ? "border-[#683fe7] bg-indigo-50 shadow-md"
@@ -260,7 +263,7 @@ export default function MultiStepForm({ language }: MultiStepFormProps) {
           {({ values, setFieldValue }) => {
             const requiredPerStep: Record<number, string[]> = {
               0: ["creatorType", "followersCount", "platform"],
-              1: ["biggestChallenge", "timeSpentOnDMs"],
+              1: ["biggestChallenge", "platformOption"],
               2: ["dailyInteractions", "missedOpportunities"],
               3: ["automationInterest", "paymentWillingness"],
               4: ["name", "email", "instagram"],
@@ -465,37 +468,34 @@ export default function MultiStepForm({ language }: MultiStepFormProps) {
 
                         <div>
                           <label className="block text-lg font-medium text-gray-700 mb-4">
-                            {t("request.timeDMsLabel")} *
+                            {t("request.platformOption")} *
                           </label>
                           <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
-                            {/* 30min–1h */}
                             <OptionCard
-                              icon={<Clock2 className="w-6 h-6" />}
-                              title="30 min–1 h"
-                              value="30min-1h"
-                              selectedValue={values.timeSpentOnDMs}
+                              icon={<Earth className="w-6 h-6" />}
+                              title={t("request.webPlatform")}
+                              value="web"
+                              selectedValue={values.platformOption}
                               onClick={(value) =>
-                                setFieldValue("timeSpentOnDMs", value)
+                                setFieldValue("platformOption", value)
                               }
                             />
-                            {/* 1h–3h */}
                             <OptionCard
-                              icon={<Clock4 className="w-6 h-6" />}
-                              title="1 h–3 h"
+                              icon={<Smartphone className="w-6 h-6" />}
+                              title={t("request.mobilePlatform")}
                               value="1h-3h"
-                              selectedValue={values.timeSpentOnDMs}
+                              selectedValue={values.platformOption}
                               onClick={(value) =>
-                                setFieldValue("timeSpentOnDMs", value)
+                                setFieldValue("platformOption", value)
                               }
                             />
-                            {/* 3h+ */}
                             <OptionCard
-                              icon={<Clock8 className="w-6 h-6" />}
-                              title="3 h+"
+                              icon={<MonitorSmartphone className="w-6 h-6" />}
+                              title={t("request.bothPlatforms")}
                               value="3h+"
-                              selectedValue={values.timeSpentOnDMs}
+                              selectedValue={values.platformOption}
                               onClick={(value) =>
-                                setFieldValue("timeSpentOnDMs", value)
+                                setFieldValue("platformOption", value)
                               }
                             />
                           </div>
